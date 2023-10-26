@@ -1,38 +1,29 @@
 import fs from "node:fs";
 import { Router } from "express";
+import Cart from '../models/cart.js';
 
 const router = Router();
-const src = './src/data/carts.json';
-
-function fileRead() {
-  let data = fs.readFileSync(src, "utf8");
-  return data;
-}
+const cart = new Cart();
 
 router.get("/", async (req, res) => {
-  const data = fileRead();
-  res.send(JSON.parse(data));
+  const result = cart.getCarts();
+  res.json({ result });
 });
 
 router.get("/:cid", (req, res) => {
-  const index = Number(req.params.cid);
-  const data = JSON.parse(fileRead());
-  const foundCart = data.find(e => e.id === index);
-  if (!foundCart) {res.json('El id del Carrito no existe')}
-  
-  res.json(foundCart);
+  const id = Number(req.params.cid)
+  const result = cart.getCartById(id);
+  res.json({ result });
 });
 
 router.post("/", (req, res) => {
-  res.json("Posted cart");
+  const result = cart.addCart();
+
+  res.json({ result });
 });
 
-router.put("/", (req, res) => {
-  res.json("Updated cart");
-});
-
-router.delete("/", (req, res) => {
-  res.json("Deleted cart");
+router.post('/:cid/product/:pid', (req, res) => {
+  res.json('Product added to cart');
 });
 
 export default router;
