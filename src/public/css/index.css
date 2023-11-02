@@ -1,16 +1,16 @@
 * {
-  font-family: sans-serif;
+  font-family: "Segoe UI", sans-serif;
   font-weight: normal;
 }
 
 body {
-  text-align: center;
   margin: 0;
 }
 
 nav {
-  background: #333333;
+  background: #3578a5;
   display: flex;
+  place-content: flex-end;
 }
 
 nav > li {
@@ -18,10 +18,32 @@ nav > li {
   margin: 20px;
 }
 
+form {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+}
+
+form > input {
+  border: solid 1px #aaaaaa;
+  background: #eeeeee;
+}
+
+.form-container {
+  padding: 1rem;
+  border-radius: 0.6rem;
+  background: #ffffff;
+  box-shadow: 4px 4px 4px 4px #33333333;
+}
+
 a {
-  color: #fff;
-  font-size: 1rem;
+  color: #ffffff;
+  font-size: 1.2rem;
+  font-weight: bold;
   text-decoration: none;
+}
+
+button {
+  margin-bottom: 1.5rem;
 }
 
 button:hover {
@@ -35,7 +57,10 @@ button:hover {
 
 .container {
   display: grid;
+  margin: 0 auto;
+  max-width: 1200px;
   grid-template-columns: repeat(3, 1fr);
+  column-gap: 30px;
 }
 
 @media (max-width: 1024px) {
@@ -52,9 +77,11 @@ button:hover {
 
 .product {
   padding: 10px;
-  border: solid 2px #aaaaaa;
-  border-radius: 10px;
+  border: none;
+  border-radius: 20px;
   margin: 10px;
+  background: #ffffff;
+  box-shadow: 4px 4px 10px 4px #33333333;
 }
 
 .product__image {

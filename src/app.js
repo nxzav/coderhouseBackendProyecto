@@ -26,8 +26,15 @@ const PORT = process.env.PORT || 8080;
 const httpServer = app.listen(PORT, () => console.log(`Running on port ${PORT}`));
 const io = new Server(httpServer);
 
-let data;
+const products = new ProductManager();
 
 io.on('connection', (socket) => {
   console.log('New socket');
+
+  socket.emit('products', products.getProducts());
+
+  socket.on('products', productID => {
+    products.deleteProduct(Number(productID));
+    socket.emit('products', products.getProducts());
+  });
 });

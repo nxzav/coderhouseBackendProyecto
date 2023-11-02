@@ -1,11 +1,13 @@
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 
 export default class ProductManager {
+  static #instance;
   static #id;
   #path;
   #products;
 
   constructor() {
+    ProductManager.#instance = this;
     this.#path = "./src/data/products.json";
     this.#products = this.fileRead();
     ProductManager.#id = this.#products.length > 0 ? this.#products[this.#products.length - 1].id : 0;

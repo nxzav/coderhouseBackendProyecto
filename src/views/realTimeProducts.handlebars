@@ -1,5 +1,29 @@
 <div class="content">
-  <h1>Real Time Products</h1>
+  <h1>Productos en tiempo real</h1>
+
+  <div class="container form-container">
+    <h2>Crear producto</h2>
+    <form action="POST">
+      <label for="title">Title</label>
+      <input id="title" type="text" />
+      <label for="description">Description</label>
+      <input id="description" type="text" />
+      <label for="code">Code</label>
+      <input id="code" type="text" />
+      <label for="price">Price</label>
+      <input id="price" type="text" />
+      <label for="stock">Stock</label>
+      <input id="stock" type="text" />
+      <label for="category">Category</label>
+      <input id="category" type="text" />
+      <label for="thumbnails">Thumbnails</label>
+      <input id="thumbnails" type="text" />
+      <label for="status">Status</label>
+      <input id="status" type="checkbox" />
+    </form>
+  </div>
+
+  <div id="box"></div>
 </div>
 
 <script src="/socket.io/socket.io.js"></script>

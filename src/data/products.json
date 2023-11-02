@@ -22,7 +22,7 @@
     "stock": 6,
     "category": "Monitors",
     "thumbnails": [
-      "https://m.media-amazon.com/images/I/61Bw1XqRB0L._AC_UF894,1000_QL80_.jpg"
+      "https://www.canemtek.com.mx/cdn/shop/products/WhatsAppImage2022-12-26at15.18.42_5_800x.jpg?v=1672097112"
     ]
   },
   {
@@ -34,8 +34,19 @@
     "status": true,
     "stock": 5,
     "category": "Monitors",
+    "thumbnails": ["https://m.media-amazon.com/images/I/81dQavP058L.jpg"]
+  },
+  {
+    "id": 5,
+    "title": "Mouse Razer",
+    "description": "27 pulgadas FHD",
+    "code": "202",
+    "price": 59,
+    "status": true,
+    "stock": 10,
+    "category": "Mouse",
     "thumbnails": [
-      "https://m.media-amazon.com/images/I/81dQavP058L.jpg"
+      "https://blizzstoreperu.com/cdn/shop/products/MouseRazer1-1.jpg?v=1620067682"
     ]
   }
 ]
