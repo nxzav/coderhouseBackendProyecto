@@ -1,0 +1,19 @@
+<div class="content">
+  <h1>Products</h1>
+
+  <div class="container">
+    {{#each p}}
+      <div class="product">
+        <h2>{{title}}</h2>
+        <p>{{description}}</p>
+        <img height="150px" src="{{thumbnails}}" alt="" />
+        <p>${{price}}</p>
+        <p>Stock: {{stock}}</p>
+        <button>Buy</button>
+      </div>
+    {{/each}}
+  </div>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/index.js"></script>

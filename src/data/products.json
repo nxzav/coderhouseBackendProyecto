@@ -1,1 +1,41 @@
-[{"id":1,"title":"Monitor","description":"Asus","code":"123","price":399,"status":true,"stock":5,"category":"Monitors","thumbnails":["https://m.media-amazon.com/images/I/81rd5yFdbRL._AC_UF894,1000_QL80_.jpg"]},{"id":2,"title":"Monitor","description":"Dell","code":"14","price":299,"status":true,"stock":6,"category":"Monitors","thumbnails":["https://m.media-amazon.com/images/I/81rd5yFdbRL._AC_UF894,1000_QL80_.jpg"]},{"id":3,"title":"Monitor","description":"Samsung","code":"124","price":399,"status":true,"stock":5,"category":"Monitors","thumbnails":["https://m.media-amazon.com/images/I/81rd5yFdbRL._AC_UF894,1000_QL80_.jpg"]}]
+[
+  {
+    "id": 1,
+    "title": "Monitor Asus",
+    "description": "27 pulgadas FHD",
+    "code": "123",
+    "price": 399,
+    "status": true,
+    "stock": 5,
+    "category": "Monitors",
+    "thumbnails": [
+      "https://m.media-amazon.com/images/I/81rd5yFdbRL._AC_UF894,1000_QL80_.jpg"
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Monitor Dell",
+    "description": "24 pulgadas 144hz",
+    "code": "14",
+    "price": 299,
+    "status": true,
+    "stock": 6,
+    "category": "Monitors",
+    "thumbnails": [
+      "https://m.media-amazon.com/images/I/61Bw1XqRB0L._AC_UF894,1000_QL80_.jpg"
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Monitor Samsung",
+    "description": "27 pulgadas curvo",
+    "code": "124",
+    "price": 399,
+    "status": true,
+    "stock": 5,
+    "category": "Monitors",
+    "thumbnails": [
+      "https://m.media-amazon.com/images/I/81dQavP058L.jpg"
+    ]
+  }
+]
