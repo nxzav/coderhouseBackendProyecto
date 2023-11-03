@@ -1,29 +1,34 @@
-<div class="content">
+<div class="main-content">
   <h1>Productos en tiempo real</h1>
 
-  <div class="container form-container">
-    <h2>Crear producto</h2>
-    <form action="POST">
-      <label for="title">Title</label>
-      <input id="title" type="text" />
-      <label for="description">Description</label>
-      <input id="description" type="text" />
-      <label for="code">Code</label>
-      <input id="code" type="text" />
-      <label for="price">Price</label>
-      <input id="price" type="text" />
-      <label for="stock">Stock</label>
-      <input id="stock" type="text" />
-      <label for="category">Category</label>
-      <input id="category" type="text" />
-      <label for="thumbnails">Thumbnails</label>
-      <input id="thumbnails" type="text" />
-      <label for="status">Status</label>
-      <input id="status" type="checkbox" />
-    </form>
-  </div>
+    <div class="form-container">
+      <h2>Crear producto</h2>
+      <form id="form">
+        <label for="title">Title:</label>
+        <input id="title" name="title" type="text" />
+        <label for="description">Description:</label>
+        <input id="description" name="description" type="text" />
+        <label for="code">Code:</label>
+        <input id="code" name="code" type="text" />
+        <label for="price">Price:</label>
+        <input id="price" name="price" type="number" />
+        <label for="stock">Stock:</label>
+        <input id="stock" name="stock" type="number" />
+        <label for="category">Category:</label>
+        <input id="category" name="category" type="text" />
+        <label for="thumbnails">Thumbnails:</label>
+        <input id="thumbnails" name="thumbnails" type="text" />
+        <label for="status">Status:</label>
+        <select name="status" id="status">
+          <option value="true">Disponible</option>
+          <option value="false">No disponible</option>
+        </select>
+        <div></div>
+        <button type="submit">Agregar producto</button>
+      </form>
+    </div>
 
-  <div id="box"></div>
+  <div id="box" class="container"></div>
 </div>
 
 <script src="/socket.io/socket.io.js"></script>

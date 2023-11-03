@@ -3,6 +3,12 @@
   font-weight: normal;
 }
 
+h1 {
+  margin: 40px 0;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
 body {
   margin: 0;
 }
@@ -24,15 +30,13 @@ form {
 }
 
 form > input {
+  margin-bottom: 4px;
   border: solid 1px #aaaaaa;
   background: #eeeeee;
 }
 
-.form-container {
-  padding: 1rem;
-  border-radius: 0.6rem;
-  background: #ffffff;
-  box-shadow: 4px 4px 4px 4px #33333333;
+form > button {
+  margin-top: 20px;
 }
 
 a {
@@ -43,6 +47,7 @@ a {
 }
 
 button {
+  display: block;
   margin-bottom: 1.5rem;
 }
 
@@ -50,22 +55,60 @@ button:hover {
   cursor: pointer;
 }
 
-.content {
-  padding: 30px;
+.main-content {
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  padding: 0 1rem;
   height: 100vh;
 }
 
 .container {
-  display: grid;
+  padding: 1rem;
+  position: relative;
   margin: 0 auto;
+  display: grid;
   max-width: 1200px;
   grid-template-columns: repeat(3, 1fr);
   column-gap: 30px;
 }
 
+.form-container {
+  margin: 0 auto;
+  width: 50%;
+  padding: 0 2rem;
+  border-radius: 0.6rem;
+  background: #ffffff;
+  border: solid 2px #33333333;
+  box-shadow: 4px 4px #33333333;
+}
+
+.card {
+  text-align: center;
+  display: grid;
+  place-content: center;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 1rem;
+  border: solid 2px #33333333;
+}
+
+.containter > .card {
+  text-align: center;
+}
+
+.product__image {
+  place-self: center;
+  height: 100px;
+}
+
 @media (max-width: 1024px) {
   .container {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .form-container {
+    width: 70%;
   }
 }
 
@@ -73,17 +116,4 @@ button:hover {
   .container {
     grid-template-columns: 1fr;
   }
-}
-
-.product {
-  padding: 10px;
-  border: none;
-  border-radius: 20px;
-  margin: 10px;
-  background: #ffffff;
-  box-shadow: 4px 4px 10px 4px #33333333;
-}
-
-.product__image {
-  height: 150px;
 }

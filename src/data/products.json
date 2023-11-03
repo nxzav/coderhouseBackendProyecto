@@ -48,5 +48,16 @@
     "thumbnails": [
       "https://blizzstoreperu.com/cdn/shop/products/MouseRazer1-1.jpg?v=1620067682"
     ]
+  },
+  {
+    "id": 6,
+    "title": "Mouse Logitech",
+    "description": "Superlight",
+    "code": "454",
+    "price": "49",
+    "status": "true",
+    "stock": "12",
+    "category": "Mouse",
+    "thumbnails": "https://www.pchmayoreo.com/pub/media/catalog/product/0/9/097855159632-L.jpg"
   }
 ]

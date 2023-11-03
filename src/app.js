@@ -26,15 +26,29 @@ const PORT = process.env.PORT || 8080;
 const httpServer = app.listen(PORT, () => console.log(`Running on port ${PORT}`));
 const io = new Server(httpServer);
 
-const products = new ProductManager();
+const p = new ProductManager();
 
 io.on('connection', (socket) => {
   console.log('New socket');
 
-  socket.emit('products', products.getProducts());
+  socket.emit('products', p.getProducts());
 
-  socket.on('products', productID => {
-    products.deleteProduct(Number(productID));
-    socket.emit('products', products.getProducts());
+  socket.on('products', ({productID, confirm}) => {
+    if (confirm === 'Y') {
+      console.log(`Product ${Number(productID)} deleted`);
+      p.deleteProduct(Number(productID));
+      socket.emit('products', p.getProducts());
+    } else {
+      console.log(`Product ${productID} not deleted`);
+      socket.emit('products', p.getProducts());
+    }
+  });
+
+  socket.on('addProduct', data => {
+    const { title, description, code, price, status, stock, category, thumbnails } = data;
+    const result = p.addProduct(title, description, code, price, status, stock, category, thumbnails);
+    console.log(result);
+    JSON.stringify(result);
+    socket.emit('products', p.getProducts());
   });
 });
