@@ -2,22 +2,28 @@
   <h1>Productos</h1>
 
   <div class="container">
-    {{#each products}}
+    {{#each docs}}
       <div class="card">
-        <h2>{{title}}</h2>
-        <p>{{description}}</p>
-        <img class="product__image" src="{{thumbnails}}" alt="" />
-        <p>${{price}}</p>
-        <p>Stock: {{stock}}</p>
+        <h2>{{this.title}}</h2>
+        <p>{{this.description}}</p>
+        <img class="product__image" src="{{this.thumbnails}}" alt="" />
+        <p>${{this.price}}</p>
+        <p>Stock: {{this.stock}}</p>
         <button>ADD</button>
       </div>
     {{/each}}
-    <div class="pagination">
-      <span>Total Products: {{totalDocs}}</span>
-      {{totalDocs}}
-      <a href="">Previus</a>
-      <a href="">Next</a>
     </div>
+    <div class="pagination">
+      <div>
+        <span>Total Products: {{totalDocs}} /</span>
+        <span>Page: {{page}} / {{totalPages}}</span>
+      </div>
+      {{#if hasPrevPage}}
+      <a href="/?page={{prevPage}}&limit={{limit}}">Previus</a>
+      {{/if}}
+      {{#if hasNextPage}}
+      <a href="/?page={{nextPage}}&limit={{limit}}">Next</a>
+      {{/if}}
   </div>
 
 </div>

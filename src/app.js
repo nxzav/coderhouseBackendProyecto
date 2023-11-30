@@ -1,8 +1,7 @@
 import express from "express";
 import handlebars from "express-handlebars";
-import { createServer } from "http";
 import { Server } from "socket.io";
-import mongoose, { Mongoose } from "mongoose";
+import mongoose from "mongoose";
 
 import __dirname from "./utils.js";
 
@@ -38,11 +37,14 @@ mongoose
 const httpServer = app.listen(PORT, () => console.log("Running..."));
 const io = new Server(httpServer);
 
-const p = await ProductModel.find().lean().exec();
+function p() {
+  return ProductModel.find().lean().exec();
+}
 
-io.on("connection", (socket) => {
+io.on("connection", async (socket) => {
   console.log("New Socket");
-  socket.emit("products", p);
+  const products = await p();
+  socket.emit("products", products);
 });
 
 // const io = new Server(httpServer);
