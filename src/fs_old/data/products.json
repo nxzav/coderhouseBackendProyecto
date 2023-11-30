@@ -1,0 +1,202 @@
+[
+  {
+    "id": 1,
+    "title": "Monitor Asus",
+    "description": "27 pulgadas FHD",
+    "code": "123",
+    "price": 399,
+    "status": true,
+    "stock": 5,
+    "category": "Monitors",
+    "thumbnails": [
+      "https://m.media-amazon.com/images/I/81rd5yFdbRL._AC_UF894,1000_QL80_.jpg"
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Monitor Dell",
+    "description": "24 pulgadas 144hz",
+    "code": "14",
+    "price": 299,
+    "status": true,
+    "stock": 6,
+    "category": "Monitors",
+    "thumbnails": [
+      "https://www.canemtek.com.mx/cdn/shop/products/WhatsAppImage2022-12-26at15.18.42_5_800x.jpg?v=1672097112"
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Monitor Samsung",
+    "description": "27 pulgadas curvo",
+    "code": "124",
+    "price": 399,
+    "status": true,
+    "stock": 5,
+    "category": "Monitors",
+    "thumbnails": ["https://m.media-amazon.com/images/I/81dQavP058L.jpg"]
+  },
+  {
+    "id": 5,
+    "title": "Mouse Razer",
+    "description": "27 pulgadas FHD",
+    "code": "202",
+    "price": 59,
+    "status": true,
+    "stock": 10,
+    "category": "Mouse",
+    "thumbnails": [
+      "https://blizzstoreperu.com/cdn/shop/products/MouseRazer1-1.jpg?v=1620067682"
+    ]
+  },
+  {
+    "id": 6,
+    "title": "Mouse Logitech",
+    "description": "Superlight",
+    "code": "454",
+    "price": "49",
+    "status": "true",
+    "stock": "12",
+    "category": "Mouse",
+    "thumbnails": "https://www.pchmayoreo.com/pub/media/catalog/product/0/9/097855159632-L.jpg"
+  },
+  {
+    "id": 7,
+    "title": "Monitor LG",
+    "description": "32 pulgadas QHD",
+    "code": "456",
+    "price": 499,
+    "status": true,
+    "stock": 3,
+    "category": "Monitors",
+    "thumbnails": [
+      "https://m.media-amazon.com/images/I/81Zt42ioCgL.AC_UF894,1000_QL80.jpg"
+    ]
+  },
+
+  {
+    "id": 8,
+    "title": "Monitor Samsung",
+    "description": "24 pulgadas FHD",
+    "code": "789",
+    "price": 299,
+    "status": true,
+    "stock": 7,
+    "category": "Monitors",
+    "thumbnails": [
+      "https://m.media-amazon.com/images/I/81QpkIctqPL.AC_UF894,1000_QL80.jpg"
+    ]
+  },
+
+  {
+    "id": 9,
+    "title": "Monitor Acer",
+    "description": "27 pulgadas 4K",
+    "code": "101",
+    "price": 599,
+    "status": true,
+    "stock": 2,
+    "category": "Monitors",
+    "thumbnails": [
+      "https://m.media-amazon.com/images/I/81ZL9WmXwOL.AC_UF894,1000_QL80.jpg"
+    ]
+  },
+
+  {
+    "id": 10,
+    "title": "Monitor Dell",
+    "description": "23 pulgadas FHD",
+    "code": "112",
+    "price": 199,
+    "status": true,
+    "stock": 10,
+    "category": "Monitors",
+    "thumbnails": [
+      "https://m.media-amazon.com/images/I/81nSaeP3AvL.AC_UF894,1000_QL80.jpg"
+    ]
+  },
+
+  {
+    "id": 11,
+    "title": "Monitor HP",
+    "description": "22 pulgadas FHD",
+    "code": "131",
+    "price": 179,
+    "status": true,
+    "stock": 8,
+    "category": "Monitors",
+    "thumbnails": [
+      "https://m.media-amazon.com/images/I/71trhuzbhML.AC_UF894,1000_QL80.jpg"
+    ]
+  },
+
+  {
+    "id": 12,
+    "title": "Monitor Lenovo",
+    "description": "28 pulgadas 4K",
+    "code": "415",
+    "price": 649,
+    "status": true,
+    "stock": 1,
+    "category": "Monitors",
+    "thumbnails": [
+      "https://m.media-amazon.com/images/I/61owppZ2NQL.AC_UF894,1000_QL80.jpg"
+    ]
+  },
+
+  {
+    "id": 13,
+    "title": "Monitor BenQ",
+    "description": "27 pulgadas QHD",
+    "code": "161",
+    "price": 449,
+    "status": true,
+    "stock": 4,
+    "category": "Monitors",
+    "thumbnails": [
+      "https://m.media-amazon.com/images/I/71GxP6DHsFL.AC_UF894,1000_QL80.jpg"
+    ]
+  },
+
+  {
+    "id": 14,
+    "title": "Monitor Philips",
+    "description": "32 pulgadas 4K",
+    "code": "718",
+    "price": 699,
+    "status": true,
+    "stock": 0,
+    "category": "Monitors",
+    "thumbnails": [
+      "https://m.media-amazon.com/images/I/81oORn9ITML.AC_UF894,1000_QL80.jpg"
+    ]
+  },
+
+  {
+    "id": 15,
+    "title": "Monitor AOC",
+    "description": "24 pulgadas FHD",
+    "code": "191",
+    "price": 249,
+    "status": true,
+    "stock": 6,
+    "category": "Monitors",
+    "thumbnails": [
+      "https://m.media-amazon.com/images/I/71Swqqe7XAL.AC_UF894,1000_QL80.jpg"
+    ]
+  },
+
+  {
+    "id": 16,
+    "title": "Monitor ViewSonic",
+    "description": "27 pulgadas QHD",
+    "code": "202",
+    "price": 399,
+    "status": true,
+    "stock": 5,
+    "category": "Monitors",
+    "thumbnails": [
+      "https://m.media-amazon.com/images/I/81SGb5l+lZL.AC_UF894,1000_QL80.jpg"
+    ]
+  }
+]

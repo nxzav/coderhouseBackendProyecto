@@ -1,12 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch&family=Montserrat&display=swap');
+
 * {
   font-family: "Segoe UI", sans-serif;
   font-weight: normal;
 }
 
 h1 {
-  margin: 40px 0;
   text-align: center;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
+  font-family: 'Chakra Petch', sans-serif;
+  color: #222;
 }
 
 body {
@@ -14,14 +17,33 @@ body {
 }
 
 nav {
+  width: 100%;
   background: #3578a5;
   display: flex;
-  place-content: flex-end;
+  justify-content: center;
 }
 
-nav > li {
+nav > section, section > a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+nav > section {
+  width: 1200px;
+}
+
+.logo {
+  height: 80px;
+}
+
+.menu > li {
   list-style: none;
-  margin: 20px;
+  margin-right: 12px;
+}
+
+.menu {
+  display: flex;
 }
 
 form {
@@ -44,6 +66,10 @@ a {
   font-size: 1.2rem;
   font-weight: bold;
   text-decoration: none;
+}
+
+a:hover {
+  cursor: pointer;
 }
 
 button {
@@ -74,13 +100,13 @@ button:hover {
 }
 
 .form-container {
-  margin: 0 auto;
+  margin: 0 auto 2rem auto;
   width: 50%;
   padding: 0 2rem;
   border-radius: 0.6rem;
   background: #ffffff;
   border: solid 2px #33333333;
-  box-shadow: 4px 4px #33333333;
+  box-shadow: 0px 4px 0 2px #33333333;
 }
 
 .card {
@@ -99,7 +125,7 @@ button:hover {
 
 .product__image {
   place-self: center;
-  height: 100px;
+  height: 60px;
 }
 
 @media (max-width: 1024px) {
@@ -116,4 +142,10 @@ button:hover {
   .container {
     grid-template-columns: 1fr;
   }
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
