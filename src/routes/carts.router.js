@@ -1,14 +1,22 @@
-import fs from "node:fs";
 import { Router } from "express";
+import CartModel from "../models/cart.model.js";
+import ProductModel from "../models/product.model.js";
 // import Cart from '../models/cart.js';
 
 const router = Router();
 // const cart = new Cart();
 
-// router.get("/", async (req, res) => {
-//   const result = cart.getCarts();
-//   res.json({ result });
-// });
+router.get("/", async (req, res) => {
+  const result = await CartModel.find().populate('products.product');
+  console.log(result);
+  res.send(result);
+});
+
+router.get("/:cid", async (req, res) => {
+  const result = await CartModel.findOne({ _id: cid });
+  console.log(result);
+  res.send(result);
+});
 
 // router.get("/:cid", (req, res) => {
 //   const id = Number(req.params.cid)

@@ -37,14 +37,24 @@ mongoose
 const httpServer = app.listen(PORT, () => console.log("Running..."));
 const io = new Server(httpServer);
 
-function p() {
+function getProducts() {
   return ProductModel.find().lean().exec();
 }
 
 io.on("connection", async (socket) => {
   console.log("New Socket");
-  const products = await p();
+  const products = await getProducts();
   socket.emit("products", products);
+
+  socket.on("delete", async ({ confirm, productID }) => {
+    if (confirm === "Y") {
+      console.log(confirm);
+      console.log(productID);
+      await ProductModel.deleteOne({ _id: productID });
+      const products = await getProducts();
+      socket.emit("products", products);
+    } else return;
+  });
 });
 
 // const io = new Server(httpServer);

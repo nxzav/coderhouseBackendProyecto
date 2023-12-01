@@ -1,0 +1,13 @@
+<div class="main-content">
+  {{#each cart}}
+    <div class="cart">
+      <h1>Cart</h1>
+      {{#each products}}
+        <div>
+          <p>Product: {{product}}</p>
+          <p>Quantity: {{quantity}}</p>
+        </div>
+      {{/each}}
+    </div>
+  {{/each}}
+</div>

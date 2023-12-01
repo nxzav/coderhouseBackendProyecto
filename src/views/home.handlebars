@@ -1,29 +1,54 @@
 <div class="main-content">
   <h1>Productos</h1>
 
+  <div class="search">
+    Buscar:
+    <input type="text" id="query" value="{{query}}" />
+    <button id="searchBtn">Search</button>
+  </div>
+  <div class="filters">
+    <span>Limit:</span>
+    <input type="number" id="limit" value="{{limit}}" />
+    Page:
+    <input type="number" id="page" value="{{page}}" />
+    Category:
+    <select name="sort" id="sort">
+      <option value="" selected disabled hidden>Ordenar</option>
+      <option value="asc">Ascendente</option>
+      <option value="desc">Descendente</option>
+    </select>
+    Disponible:
+    <input type="checkbox" id="status" value="1" checked />
+  </div>
+
   <div class="container">
-    {{#each docs}}
+    {{#each payload}}
       <div class="card">
-        <h2>{{this.title}}</h2>
+        <h3>{{this.title}}</h3>
         <p>{{this.description}}</p>
+        {{!-- <p>
+          {{#if this.thumbnails}}
+            Imagen
+          {{/if}}
+        </p> --}}
         <img class="product__image" src="{{this.thumbnails}}" alt="" />
         <p>${{this.price}}</p>
         <p>Stock: {{this.stock}}</p>
         <button>ADD</button>
       </div>
     {{/each}}
+  </div>
+  <div class="pagination">
+    <div>
+      <span>Total Products: {{totalDocs}} /</span>
+      <span>Page: {{page}} / {{totalPages}}</span>
     </div>
-    <div class="pagination">
-      <div>
-        <span>Total Products: {{totalDocs}} /</span>
-        <span>Page: {{page}} / {{totalPages}}</span>
-      </div>
-      {{#if hasPrevPage}}
-      <a href="/?page={{prevPage}}&limit={{limit}}">Previus</a>
-      {{/if}}
-      {{#if hasNextPage}}
-      <a href="/?page={{nextPage}}&limit={{limit}}">Next</a>
-      {{/if}}
+    {{#if hasPrevPage}}
+      <a id="prevPage" data-page="{{prevPage}}">Previus</a>
+    {{/if}}
+    {{#if hasNextPage}}
+      <a id="nextPage" data-page="{{nextPage}}">Next</a>
+    {{/if}}
   </div>
 
 </div>

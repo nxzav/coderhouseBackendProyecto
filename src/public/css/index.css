@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch&family=Montserrat&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Chakra+Petch&family=Montserrat&display=swap");
 
 * {
   font-family: "Segoe UI", sans-serif;
@@ -8,8 +8,13 @@
 h1 {
   text-align: center;
   font-size: 1.8rem;
-  font-family: 'Chakra Petch', sans-serif;
-  color: #222;
+  font-family: "Chakra Petch", sans-serif;
+}
+
+.title {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #fff;
 }
 
 body {
@@ -23,7 +28,8 @@ nav {
   justify-content: center;
 }
 
-nav > section, section > a {
+nav > section,
+section > a {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -34,7 +40,11 @@ nav > section {
 }
 
 .logo {
-  height: 80px;
+  height: 40px;
+}
+
+.menu {
+  display: flex;
 }
 
 .menu > li {
@@ -42,13 +52,41 @@ nav > section {
   margin-right: 12px;
 }
 
-.menu {
+.search {
   display: flex;
+  width: min(480px, 90%);
+  margin: 0 auto;
+  flex-direction: column;
+  place-content: center;
+  text-align: center;
+}
+
+.filters {
+  display: flex;
+  flex-direction: column;
+  width: min(480px, 90%);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.filters > input,
+.filters > select {
+  margin: 4px auto;
+  width: 100%;
+}
+
+#query, #searchBtn {
+  display: block;
+}
+
+option {
+  color: #222;
 }
 
 form {
   display: grid;
   grid-template-columns: 1fr 2fr;
+  font-size: 0.8rem;
 }
 
 form > input {
@@ -119,6 +157,10 @@ button:hover {
   border: solid 2px #33333333;
 }
 
+.card > * {
+  margin: 0.5rem auto;
+}
+
 .containter > .card {
   text-align: center;
 }
@@ -142,6 +184,9 @@ button:hover {
   .container {
     grid-template-columns: 1fr;
   }
+  #products {
+    display: none;
+  }
 }
 
 .pagination {
@@ -154,4 +199,10 @@ button:hover {
 .pagination > a {
   margin: 0 1rem;
   color: #222;
+}
+
+.cart {
+  margin: 1rem auto;
+  padding: 2rem;
+  background-color: #eeeeee;
 }
