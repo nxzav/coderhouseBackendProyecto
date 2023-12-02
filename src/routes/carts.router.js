@@ -13,10 +13,15 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/:cid", async (req, res) => {
-  const result = await CartModel.findOne({ _id: cid });
+  const result = await CartModel.findOne({ _id: req.params.cid });
   console.log(result);
   res.send(result);
 });
+
+router.post("/", async (req, res) => {
+  const result = req.body;
+  
+})
 
 // router.get("/:cid", (req, res) => {
 //   const id = Number(req.params.cid)

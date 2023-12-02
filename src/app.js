@@ -53,7 +53,7 @@ io.on("connection", async (socket) => {
       await ProductModel.deleteOne({ _id: productID });
       const products = await getProducts();
       socket.emit("products", products);
-    } else return;
+    } else console.log('Product not deleted');;
   });
 });
 

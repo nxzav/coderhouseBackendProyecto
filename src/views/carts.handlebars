@@ -1,0 +1,19 @@
+<div class="main-content">
+  {{#each carts}}
+    <div class="card">
+      <h1>Cart</h1>
+      {{#each products}}
+        <div>
+          {{#each product}}
+            {{title}}
+          {{/each}}
+        </div>
+      {{/each}}
+    </div>
+  {{/each}}
+</div>
+
+<script>
+  const data = {{{carts}}};
+  console.log(data);
+</script>

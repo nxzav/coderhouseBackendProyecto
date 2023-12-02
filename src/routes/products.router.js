@@ -19,17 +19,8 @@ router.get("/:pid", async (req, res) => {
 
 router.post("/", async (req, res) => {
   const newProduct = req.body;
-  
+  await ProductModel.create(newProduct);
   console.log(newProduct);
-  // try {
-  //   await ProductModel.create({
-
-  //   })
-  // } catch (error) {
-    
-  // }
-  // console.log(result);
-  // res.json({ result });
 });
 
 // router.put("/:pid", (req, res) => {
