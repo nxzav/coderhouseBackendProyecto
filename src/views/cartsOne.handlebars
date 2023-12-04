@@ -1,14 +1,14 @@
 <div class="main-content">
   <div class="cart">
-    <h2>Cart: {{cart._id}}</h2>
+    <h3>Cart: {{cart._id}}</h3>
     {{#each cart.products}}
       {{#each product}}
-        <p>Product: {{title}}</p>
-        <p>Description: {{description}}</p>
-        <p>Code: {{code}}</p>
-        <p>${{price}}</p>
+        Product: {{title}} <br>
+        Description: {{description}} <br>
+        Code: {{code}} <br>
+        Price: ${{price}} <br>
       {{/each}}
-      <p>Quantity: {{quantity}}</p>
+      Quantity: {{quantity}}
       <hr>
     {{/each}}
   </div>

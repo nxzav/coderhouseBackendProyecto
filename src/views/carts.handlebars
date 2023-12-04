@@ -1,7 +1,9 @@
 <div class="main-content">
   {{#each carts}}
     <div class="cart">
-      <a class="cart-link" href="/carts/{{_id}}"><h1>Cart: {{_id}}</h1></a>
+      <a class="cart-link" href="/carts/{{_id}}">
+        <h3>Cart: {{_id}}</h3>
+      </a>
       {{#each products}}
         <div>
           {{#each product}}
@@ -10,7 +12,7 @@
             <br>
             Description: {{description}}
             <br>
-            Thumbnail: {{thumbnails}}
+            
           {{/each}}
           <p>Quantity: {{quantity}}</p>
           </div>

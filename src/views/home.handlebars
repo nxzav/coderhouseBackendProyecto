@@ -1,8 +1,7 @@
 <div class="main-content">
-  <h1>Productos</h1>
+  <h1>Products</h1>
 
   <div class="search">
-    Buscar:
     <input type="text" id="query" value="{{query}}" />
     <button id="searchBtn">Search</button>
   </div>
@@ -11,14 +10,17 @@
     <input type="number" id="limit" value="{{limit}}" />
     Page:
     <input type="number" id="page" value="{{page}}" />
-    Category:
-    <select name="sort" id="sort">
-      <option value="" selected disabled hidden>Ordenar</option>
-      <option value="asc">Ascendente</option>
-      <option value="desc">Descendente</option>
+    Sort:
+    <select name="sort" id="sort" value="{{order}}">
+      <option value="" selected disabled hidden>Sort</option>
+      <option value="1">Asc</option>
+      <option value="-1">Desc</option>
     </select>
-    Disponible:
-    <input type="checkbox" id="status" value="1" checked />
+    Status:
+    <select name="status" id="status">
+      <option value="true">Available</option>
+      <option value="false">Not available</option>
+    </select>
   </div>
 
   <div class="container">
@@ -34,7 +36,7 @@
         <img class="product__image" src="{{this.thumbnails}}" alt="" />
         <p>${{this.price}}</p>
         <p>Stock: {{this.stock}}</p>
-        <button>ADD</button>
+        <button>Add to cart</button>
       </div>
     {{/each}}
   </div>

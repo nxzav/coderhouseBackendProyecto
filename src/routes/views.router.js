@@ -1,4 +1,4 @@
-import express, { json } from "express";
+import express from "express";
 import ProductModel from "../models/product.model.js";
 import CartModel from "../models/cart.model.js";
 import __dirname from "../utils.js";
@@ -11,19 +11,18 @@ router.get("/", async (req, res) => {
   const limit = parseInt(req.query?.limit ?? 6);
   const page = parseInt(req.query?.page ?? 1);
   const query = req.query?.query ?? "";
-  // const order =
+  const order = parseInt(req.query?.sort ?? 1);
+  console.log({ order });
 
   const search = {};
-  if (query) search.name = { $regex: query, $options: "i" };
+  if (query) search.title = { $regex: query, $options: "i" };
 
-  const result = await ProductModel.paginate(
-    {},
-    {
-      page,
-      limit,
-      lean: true,
-    }
-  );
+  const result = await ProductModel.paginate(search, {
+    page,
+    limit,
+    sort: { price: order },
+    lean: true,
+  });
 
   let prevLink;
   let nextLink;
@@ -57,7 +56,6 @@ router.get("/carts", async (req, res) => {
     .exec();
   console.log({ carts });
   res.render("carts", { carts });
-  // res.send({carts});
 });
 
 router.get("/carts/:cid", async (req, res) => {
