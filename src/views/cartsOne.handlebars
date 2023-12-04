@@ -1,0 +1,15 @@
+<div class="main-content">
+  <div class="cart">
+    <h2>Cart: {{cart._id}}</h2>
+    {{#each cart.products}}
+      {{#each product}}
+        <p>Product: {{title}}</p>
+        <p>Description: {{description}}</p>
+        <p>Code: {{code}}</p>
+        <p>${{price}}</p>
+      {{/each}}
+      <p>Quantity: {{quantity}}</p>
+      <hr>
+    {{/each}}
+  </div>
+</div>

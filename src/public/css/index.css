@@ -209,3 +209,7 @@ button:hover {
   padding: 2rem;
   background-color: #eeeeee;
 }
+
+.cart-link {
+  color: #444;
+}

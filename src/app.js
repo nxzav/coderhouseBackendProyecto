@@ -17,7 +17,7 @@ const MONGODB_URI =
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(express.static(__dirname + "/public"));
+app.use(express.static(__dirname + '/public'));
 
 app.engine("handlebars", handlebars.engine());
 app.set("views", __dirname + "/views");
@@ -46,6 +46,12 @@ io.on("connection", async (socket) => {
   const products = await getProducts();
   socket.emit("products", products);
 
+  socket.on("post", async (data) => {
+    const products = await getProducts();
+    socket.emit("products", products);
+    console.log("Product added");
+  });
+
   socket.on("delete", async ({ confirm, productID }) => {
     if (confirm === "Y") {
       console.log(confirm);
@@ -53,7 +59,7 @@ io.on("connection", async (socket) => {
       await ProductModel.deleteOne({ _id: productID });
       const products = await getProducts();
       socket.emit("products", products);
-    } else console.log('Product not deleted');;
+    } else console.log("Product not deleted");
   });
 });
 

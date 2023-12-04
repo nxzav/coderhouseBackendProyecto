@@ -11,6 +11,7 @@ router.get("/", async (req, res) => {
   const limit = parseInt(req.query?.limit ?? 6);
   const page = parseInt(req.query?.page ?? 1);
   const query = req.query?.query ?? "";
+  // const order =
 
   const search = {};
   if (query) search.name = { $regex: query, $options: "i" };
@@ -45,15 +46,33 @@ router.get("/", async (req, res) => {
   res.render("home", result);
 });
 
-router.get("/carts", async (req, res) => {
-  const carts = await CartModel.find().populate('products.product');
-  console.log({carts})
-  res.render("carts", {carts});
-  // res.send(carts);
-});
-
 router.get("/realtimeproducts", async (req, res) => {
   res.render("realTimeProducts", {});
+});
+
+router.get("/carts", async (req, res) => {
+  const carts = await CartModel.find()
+    .populate("products.product")
+    .lean()
+    .exec();
+  console.log({ carts });
+  res.render("carts", { carts });
+  // res.send({carts});
+});
+
+router.get("/carts/:cid", async (req, res) => {
+  try {
+    const cart = await CartModel.findOne({ _id: req.params.cid })
+      .populate("products.product")
+      .lean()
+      .exec();
+    console.log(req.params.cid);
+    console.log(cart);
+    res.render("cartsOne", { cart });
+  } catch (error) {
+    console.log(error);
+    res.send("Error to show product");
+  }
 });
 
 export default router;
