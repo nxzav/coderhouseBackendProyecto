@@ -6,14 +6,11 @@
       </a>
       {{#each products}}
         <div>
-          {{#each product}}
           <div>
-            Product: {{title}}
+            Product: {{product.title}}
             <br>
-            Description: {{description}}
+            Description: {{product.description}}
             <br>
-            
-          {{/each}}
           <p>Quantity: {{quantity}}</p>
           </div>
         </div>

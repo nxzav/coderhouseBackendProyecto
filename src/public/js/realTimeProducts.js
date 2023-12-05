@@ -8,21 +8,16 @@ const form = document.getElementById("form");
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  const formData = new FormData(form);
+  const title = document.getElementById('title').value;
+  const description = document.getElementById('description').value;
+  const code = document.getElementById('code').value;
+  const price = document.getElementById('price').value;
+  const stock = document.getElementById('stock').value;
+  const category = document.getElementById('category').value;
+  const thumbnails = document.getElementById('thumbnails').value;
 
-  const res = Object.fromEntries(formData);
-  const payload = JSON.stringify(res);
-  console.log(payload);
-
-  fetch("/api/products", {
-    method: "POST",
-    body: payload,
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-
-  socket.emit("post", "Posted");
+  const product = { title, description, code, price, stock, category, thumbnails };
+  socket.emit("addProduct", product);
 });
 
 socket.on("products", (data) => {

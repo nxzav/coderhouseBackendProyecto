@@ -1,11 +1,8 @@
 import express from "express";
 import ProductModel from "../models/product.model.js";
 import CartModel from "../models/cart.model.js";
-import __dirname from "../utils.js";
-// import ProductManager from '../models/product.js';
 
 const router = express.Router();
-// const products = new ProductManager();
 
 router.get("/", async (req, res) => {
   const limit = parseInt(req.query?.limit ?? 6);
@@ -66,7 +63,7 @@ router.get("/carts/:cid", async (req, res) => {
       .exec();
     console.log(req.params.cid);
     console.log(cart);
-    res.render("cartsOne", { cart });
+    res.render("cartsOne", cart);
   } catch (error) {
     console.log(error);
     res.send("Error to show product");
