@@ -3,10 +3,20 @@ const nextPage = document.getElementById("nextPage");
 const searchBtn = document.getElementById("searchBtn");
 const addToCart = document.querySelectorAll(".addToCart");
 
+const cid = "656ed81aa7d768d9e0270579";
+
 addToCart.forEach((e) => e.addEventListener("click", () => {
-    const result = {};
-    result.pid = e.dataset.id;
-    console.log(result);
+    const pid = e.dataset.id;
+
+    fetch(`/api/carts/${cid}/product/${pid}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+      .catch((e) => console.log("Error:", e));
   })
 );
 

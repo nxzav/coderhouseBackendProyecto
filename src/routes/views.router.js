@@ -2,6 +2,7 @@ import express from "express";
 import ProductModel from "../models/product.model.js";
 import CartModel from "../models/cart.model.js";
 import MessageModel from "../models/chat.model.js";
+import {getCartById} from '../controllers/carts.controller.js';
 
 const router = express.Router();
 
@@ -53,22 +54,14 @@ router.get("/chat", async (req, res) => {
 });
 
 router.get("/carts", async (req, res) => {
-  const carts = await CartModel.find()
-    .populate("products.product")
-    .lean()
-    .exec();
+  const carts = await CartModel.find().populate("products.product").lean().exec();
   console.log({ carts });
   res.render("carts", { carts });
 });
 
 router.get("/carts/:cid", async (req, res) => {
   try {
-    const cart = await CartModel.findOne({ _id: req.params.cid })
-      .populate("products.product")
-      .lean()
-      .exec();
-    console.log(req.params.cid);
-    console.log(cart);
+    const cart = await CartModel.findOne({_id: req.params.cid}).lean().exec();
     res.render("cartsOne", cart);
   } catch (error) {
     console.log(error);

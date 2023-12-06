@@ -28,14 +28,17 @@ export const addProductInCart = async (req = request, res = response) => {
   try {
     const { cid, pid } = req.params;
     const result = await CartModel.findById(cid);
+    console.log(result);
 
     if (!result)
       return res
         .status(404)
         .json({ msg: `Cart with id ${cid} does not exist` });
 
-    const isProductInCart = result.products.find(e => e.product.toString() === pid);
-    if (isProductInCart) isProductInCart.quantity++;
+    const isProductInCart = result.products.find(e => e.product._id.toString() === pid);
+    console.log({isProductInCart});
+    if (isProductInCart)
+      isProductInCart.quantity++;
     else result.products.push({ product: pid, quantity: 1 });
 
     result.save();

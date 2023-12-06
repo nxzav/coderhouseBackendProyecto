@@ -4,13 +4,14 @@ import { Server } from "socket.io";
 import "dotenv/config";
 
 import __dirname from "./utils.js";
+import { dbConnect } from "./dbconfig.js";
 
 import routerViews from "./routes/views.router.js";
 import routerProducts from "./routes/products.router.js";
 import routerCarts from "./routes/carts.router.js";
+
 import ProductModel from "./models/product.model.js";
 import MessageModel from "./models/chat.model.js";
-import { dbConnect } from "./dbconfig.js";
 
 const app = express();
 
