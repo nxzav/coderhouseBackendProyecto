@@ -7,11 +7,11 @@ import {getCartById} from '../controllers/carts.controller.js';
 const router = express.Router();
 
 router.get("/", async (req, res) => {
+  const query = req.query?.query ?? "";
   const limit = parseInt(req.query?.limit ?? 6);
   const page = parseInt(req.query?.page ?? 1);
-  const query = req.query?.query ?? "";
   const order = parseInt(req.query?.sort ?? 1);
-  console.log({ order });
+  const available = (req.query?.status ?? true);
 
   const search = {};
   if (query) search.title = { $regex: query, $options: "i" };
@@ -37,32 +37,34 @@ router.get("/", async (req, res) => {
   result.status = "success";
   result.prevLink = prevLink;
   result.nextLink = nextLink;
+  result.available = available;
+  result.order = order;
 
   delete result.docs;
 
   console.log({ result });
-  res.render("home", result);
+  res.render("home", {title: "MyStore", result});
 });
 
 router.get("/realtimeproducts", async (req, res) => {
-  res.render("realTimeProducts", {});
+  res.render("realTimeProducts", {title: "Real Time Products"});
 });
 
 router.get("/chat", async (req, res) => {
   const messages = await MessageModel.find().lean().exec();
-  res.render("chat", { messages });
+  res.render("chat", { title: "Chat", messages });
 });
 
 router.get("/carts", async (req, res) => {
   const carts = await CartModel.find().populate("products.product").lean().exec();
   console.log({ carts });
-  res.render("carts", { carts });
+  res.render("carts", {title: "Carts", carts });
 });
 
 router.get("/carts/:cid", async (req, res) => {
   try {
     const cart = await CartModel.findOne({_id: req.params.cid}).lean().exec();
-    res.render("cartsOne", cart);
+    res.render("cart", cart);
   } catch (error) {
     console.log(error);
     res.send("Error to show product");

@@ -1,5 +1,3 @@
-console.log("Chat init");
-
 const user = prompt("Insert email");
 const socket = io();
 
@@ -23,5 +21,4 @@ socket.on("logs", (messages) => {
   });
 
   box.innerHTML = html;
-  console.log(messages);
 });

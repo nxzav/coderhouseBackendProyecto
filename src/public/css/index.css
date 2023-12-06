@@ -2,7 +2,6 @@
 
 * {
   font-family: "Segoe UI", sans-serif;
-  font-weight: normal;
 }
 
 h1 {
@@ -20,6 +19,21 @@ h1 {
 
 body {
   margin: 0;
+}
+
+button {
+  display: block;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 4px 6px;
+  background-color: #fff;
+  color: #000;
+  transition: all 0.1s;
+}
+
+button:hover {
+  background-color: #ddd;
+  cursor: pointer;
 }
 
 nav {
@@ -71,8 +85,8 @@ nav > section {
 }
 
 .filters {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
   width: min(480px, 90%);
   margin: 1rem auto;
   padding: 1rem;
@@ -123,15 +137,6 @@ a {
 }
 
 a:hover {
-  cursor: pointer;
-}
-
-button {
-  display: block;
-  margin-bottom: 1.5rem;
-}
-
-button:hover {
   cursor: pointer;
 }
 
@@ -201,6 +206,7 @@ button:hover {
 
 .pagination {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   padding-bottom: 2rem;
@@ -211,13 +217,20 @@ button:hover {
   color: #222;
 }
 
+.navButtons {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
 .cart {
-  margin: 1rem auto;
+  margin: 1rem 0;
   padding: 2rem;
   background-color: #eeeeee;
 }
 
-.cart-link {
+.cart__link {
   color: #444;
 }
 

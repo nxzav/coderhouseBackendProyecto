@@ -6,21 +6,18 @@
     <button id="searchBtn">Search</button>
   </div>
   <div class="filters">
-    <span>Limit:</span>
-    <input type="number" id="limit" value="{{limit}}" />
-    Page:
-    <input type="number" id="page" value="{{page}}" />
-    Sort:
-    <select name="sort" id="sort" value="{{order}}">
-      <option value="" selected disabled hidden>Sort</option>
+    Limit: <input type="number" id="limit" value="{{limit}}" />
+    Page: <input type="number" id="page" value="{{page}}" />
+    Sort: <select name="sort" id="sort" value="{{order}}">
       <option value="1">Asc</option>
       <option value="-1">Desc</option>
     </select>
-    Status:
-    <select name="status" id="status">
+    Status: <select name="status" id="status" value="{{available}}">
       <option value="true">Available</option>
       <option value="false">Unavailable</option>
     </select>
+    <span></span>
+    <button id="filterBtn"><b>Filter</b></button>
   </div>
 
   <div class="container">
@@ -38,19 +35,21 @@
     {{/each}}
   </div>
   <div class="pagination">
-    <div>
-      <span>Total Products: {{totalDocs}} /</span>
-      <span>Page: {{page}} / {{totalPages}}</span>
+      <span>Total Products: {{totalDocs}}</span>
+      <br />
+      <span style="margin-bottom: 1rem;">Page: {{page}} / {{totalPages}}</span>
+    <div class="navButtons">
+      {{#if hasPrevPage}}
+        <a id="prevPage" data-page="{{prevPage}}"><button>Previus</button></a>
+      {{/if}}
+      {{#if hasNextPage}}
+        <a id="nextPage" data-page="{{nextPage}}"><button>Next</button></a>
+      {{/if}}
     </div>
-    {{#if hasPrevPage}}
-      <a id="prevPage" data-page="{{prevPage}}">Previus</a>
-    {{/if}}
-    {{#if hasNextPage}}
-      <a id="nextPage" data-page="{{nextPage}}">Next</a>
-    {{/if}}
   </div>
 
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/index.js"></script>

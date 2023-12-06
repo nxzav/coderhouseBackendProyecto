@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="cart">
+    <h3>Cart: {{_id}}</h3>
+    {{#each products}}
+      <hr />
+      Product: {{product.title}} <br />
+      Description: {{product.description}} <br />
+      Code: {{product.code}} <br />
+      Price: ${{product.price}} <br />
+      Stock: {{product.stock}} <br />
+      Category: {{product.category}} <br />
+      Status: {{product.status}} <br />
+      Quantity: {{quantity}}
+      <br /><br />
+    {{/each}}
+    <button>Clear cart</button>
+  </div>
+</div>

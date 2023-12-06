@@ -1,20 +1,23 @@
-<div class="main-content">
+<div class="container">
   {{#each carts}}
     <div class="cart">
-      <a class="cart-link" href="/carts/{{_id}}">
-        <h3>Cart: {{_id}}</h3>
+      <a class="cart__link" href="/carts/{{_id}}">
+        <h2>Cart</h2>
       </a>
       {{#each products}}
+        <hr />
         <div>
           <div>
-            Product: {{product.title}}
-            <br>
-            Description: {{product.description}}
-            <br>
-          <p>Quantity: {{quantity}}</p>
+           <b>Product: {{product.title}}</b> 
+            <br />
+            Description:
+            {{product.description}} <br>
+
+            ${{product.price}}
+            <br />
+            <span>Qty: {{quantity}}</span>
           </div>
         </div>
-        <hr>
       {{/each}}
     </div>
   {{/each}}
