@@ -28,13 +28,15 @@ socket.on("products", (data) => {
     const item = document.createElement("div");
     item.classList.add("card");
     item.innerHTML = `
-      <h3>Product: ${p.title}</h3>
-      <p>Description: ${p.description}</p>
       <img class="product__image" src="${p.thumbnails}" alt="${p.title}"/>
-      <p>Price: $${p.price}</p>
-      <p>Stock: ${p.stock}</p>
-      <p>ID: ${p._id}</p>
-      <button class="deleteProduct" data-id="${p._id}">Eliminar producto</button>
+      <div>
+        <h3>Product: ${p.title}</h3>
+        <p>Description: ${p.description}</p>
+        <p>Price: $${p.price}</p>
+        <p>Stock: ${p.stock}</p>
+        <button class="deleteProduct" data-id="${p._id}">Eliminar producto</button>
+      </div>
+      <p class="pid">ID: ${p._id}</p>
     `;
     content.appendChild(item);
 

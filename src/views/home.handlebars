@@ -26,17 +26,14 @@
   <div class="container">
     {{#each payload}}
       <div class="card">
-        <h3>{{this.title}}</h3>
-        <p>{{this.description}}</p>
-        {{!-- <p>
-          {{#if this.thumbnails}}
-            Imagen
-          {{/if}}
-        </p> --}}
         <img class="product__image" src="{{this.thumbnails}}" alt="" />
-        <p>${{this.price}}</p>
-        <p>Stock: {{this.stock}}</p>
-        <button>Add to cart</button>
+        <div class="card__content">
+          <h3>{{this.title}}</h3>
+          <p>{{this.description}}</p>
+          <p>${{this.price}}</p>
+          <p>Stock: {{this.stock}}</p>
+          <button class="addToCart" data-id="{{this._id}}">Add to cart</button>
+        </div>
       </div>
     {{/each}}
   </div>

@@ -1,6 +1,7 @@
 import express from "express";
 import ProductModel from "../models/product.model.js";
 import CartModel from "../models/cart.model.js";
+import MessageModel from "../models/chat.model.js";
 
 const router = express.Router();
 
@@ -44,6 +45,11 @@ router.get("/", async (req, res) => {
 
 router.get("/realtimeproducts", async (req, res) => {
   res.render("realTimeProducts", {});
+});
+
+router.get("/chat", async (req, res) => {
+  const messages = await MessageModel.find().lean().exec();
+  res.render("chat", { messages });
 });
 
 router.get("/carts", async (req, res) => {

@@ -34,9 +34,7 @@ export const addProductInCart = async (req = request, res = response) => {
         .status(404)
         .json({ msg: `Cart with id ${cid} does not exist` });
 
-    const isProductInCart = result.products.find(
-      (e) => e.product.toString() === pid
-    );
+    const isProductInCart = result.products.find(e => e.product.toString() === pid);
     if (isProductInCart) isProductInCart.quantity++;
     else result.products.push({ product: pid, quantity: 1 });
 

@@ -1,6 +1,7 @@
 import express from "express";
 import handlebars from "express-handlebars";
 import { Server } from "socket.io";
+import "dotenv/config";
 
 import __dirname from "./utils.js";
 
@@ -8,8 +9,8 @@ import routerViews from "./routes/views.router.js";
 import routerProducts from "./routes/products.router.js";
 import routerCarts from "./routes/carts.router.js";
 import ProductModel from "./models/product.model.js";
+import MessageModel from "./models/chat.model.js";
 import { dbConnect } from "./dbconfig.js";
-import { addProduct } from "./controllers/products.controller.js";
 
 const app = express();
 
@@ -29,15 +30,30 @@ const PORT = process.env.PORT || 8080;
 
 await dbConnect();
 
-const httpServer = app.listen(PORT, () => console.log(`Running... PORT: ${PORT}`));
+const httpServer = app.listen(PORT, () =>
+  console.log(`Running... PORT: ${PORT}`)
+);
 const io = new Server(httpServer);
 
-function getProducts() {
-  return ProductModel.find().lean().exec();
-}
+const getProducts = () => ProductModel.find().lean().exec();
+const getMessages = () => MessageModel.find().lean().exec();
 
 io.on("connection", async (socket) => {
   console.log("New Socket");
+
+  // Chat
+  const messages = await getMessages();
+  socket.emit("logs", messages);
+
+  socket.on("message", async (newMessage) => {
+    console.log(newMessage);
+    const result = await MessageModel.create(newMessage);
+    console.log({ result });
+    const updatedMessages = await getMessages();
+    io.emit("logs", updatedMessages);
+  });
+
+  // Real Time Products
   const products = await getProducts();
   socket.emit("products", products);
 

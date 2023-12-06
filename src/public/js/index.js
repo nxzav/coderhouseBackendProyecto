@@ -1,6 +1,14 @@
 const prevPage = document.getElementById("prevPage");
 const nextPage = document.getElementById("nextPage");
 const searchBtn = document.getElementById("searchBtn");
+const addToCart = document.querySelectorAll(".addToCart");
+
+addToCart.forEach((e) => e.addEventListener("click", () => {
+    const result = {};
+    result.pid = e.dataset.id;
+    console.log(result);
+  })
+);
 
 searchBtn.addEventListener("click", () => {
   const limit = document.getElementById("limit").value;
@@ -10,14 +18,6 @@ searchBtn.addEventListener("click", () => {
 
   const url = `/?page=${page}&limit=${limit}&query=${query}&sort=${sort}`;
   document.location.href = url;
-
-  // if (currentUrl.length < 20) {
-  //   document.location.href = `${currentUrl}&query=${query}`;
-  // } else if (query !== '') {
-  //   document.location.href = `/?query=${query}`;
-  // } else {
-  //   document.location.href = `/?query=${category}`;
-  // }
 });
 
 if (prevPage) {
