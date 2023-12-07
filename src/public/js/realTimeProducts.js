@@ -32,6 +32,7 @@ socket.on("products", (data) => {
       <div>
         <h3>Product: ${p.title}</h3>
         <p>Description: ${p.description}</p>
+        <p>Code: ${p.code}</p>
         <p>Price: $${p.price}</p>
         <p>Stock: ${p.stock}</p>
         <button class="deleteProduct" data-id="${p._id}">Eliminar producto</button>

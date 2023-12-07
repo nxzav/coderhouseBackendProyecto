@@ -2,13 +2,12 @@ import express from "express";
 import ProductModel from "../models/product.model.js";
 import CartModel from "../models/cart.model.js";
 import MessageModel from "../models/chat.model.js";
-import {getCartById} from '../controllers/carts.controller.js';
 
 const router = express.Router();
 
 router.get("/", async (req, res) => {
   const query = req.query?.query ?? "";
-  const limit = parseInt(req.query?.limit ?? 6);
+  const limit = parseInt(req.query?.limit ?? 10);
   const page = parseInt(req.query?.page ?? 1);
   const order = parseInt(req.query?.sort ?? 1);
   const available = (req.query?.status ?? true);
@@ -43,7 +42,7 @@ router.get("/", async (req, res) => {
   delete result.docs;
 
   console.log({ result });
-  res.render("home", {title: "MyStore", result});
+  res.render("home", result);
 });
 
 router.get("/realtimeproducts", async (req, res) => {

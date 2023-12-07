@@ -1,6 +1,5 @@
-// import ProductManager from "../models/product.js";
 import { Router } from "express";
-import ProductModel from "../models/product.model.js";
+
 import {
   addProduct,
   deleteProduct,
