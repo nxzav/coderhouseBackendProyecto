@@ -40,10 +40,10 @@ const filterProducts = (PrevOrNext) => {
   console.log({PrevOrNext})
   const page = PrevOrNext ? PrevOrNext.dataset.page : 1;
   const limit = document.getElementById("limit").value;
-  const sort = document.getElementById("sort").value;
+  const order = document.getElementById("order").value;
   const status = document.getElementById("status").value;
 
-  const url = `/?page=${page}&limit=${limit}&sort=${sort}&status=${status}`;
+  const url = `/?page=${page}&limit=${limit}&order=${order}&status=${status}`;
   document.location.href = url;
 };
 

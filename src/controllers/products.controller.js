@@ -1,13 +1,49 @@
 import { request, response } from "express";
 import ProductModel from "../models/product.model.js";
+import UserModel from "../models/user.model.js";
 
-export const getProducts = async (req = request, res = response) => {
+export const getProducts = async ({limit = 10, page = 1, order = 1, query, available = true}) => {
   try {
-    const result = await ProductModel.find();
-    res.json({ result });
+    limit = Number(limit);
+    page = Number(page);
+    order = Number(order);
+
+    console.log({query, limit, page, order, available});
+  
+    const search = {};
+    if (query) search.title = { $regex: query, $options: "i" };
+  
+    const result = await ProductModel.paginate(search, {
+      page,
+      limit,
+      sort: { price: order },
+      lean: true,
+    });
+  
+    let prevLink;
+    let nextLink;
+    result.prevPage !== null
+      ? (prevLink = `/?page=${page - 1}`)
+      : (prevLink = null);
+    result.nextPage !== null
+      ? (nextLink = `/?page=${page + 1}`)
+      : (nextLink = null);
+
+    result.payload = result.docs;
+    result.query = query;
+    result.status = "success";
+    result.prevLink = prevLink;
+    result.nextLink = nextLink;
+    result.available = available;
+    result.order = order;
+  
+    delete result.docs;
+
+    return result;
+
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ msg: "Internal Server Error" });
+    throw error;
   }
 };
 

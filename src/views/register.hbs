@@ -1,0 +1,28 @@
+<div class="main-content">
+  <h1>Register</h1>
+  <form class="register" action="/api/session/register" method="post">
+
+    <label for="first_name">First Name: </label>
+    <input id="first_name" type="text"  name="first_name" required>
+
+    <label for="last_name">Last Name: </label>
+    <input id="last_name" type="text"  name="last_name" required>
+
+    <label for="email">Email: </label>
+    <input id="email" type="email" name="email" required>
+
+    <label for="age">Age: </label>
+    <input id="age" type="text" name="age" required>
+
+    <label for="password">Password:</label>
+    <input id="password" type="password"  name="password" required>
+
+    <label for="confirmPassword">Confirm Password:</label>
+    <input id="confirmPassword" type="password"  name="confirmPassword" required>
+    
+    <span></span>
+    <button type="submit">Sign up</button>
+
+    <p>Have an account? <a href="/login">Log in</a></p>
+  </form>
+</div>

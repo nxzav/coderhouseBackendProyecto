@@ -1,5 +1,8 @@
 <div class="main-content">
   <h1>Products</h1>
+  {{#if user_name}}
+    <h3>Welcome {{user_name}} 😄</h3>
+  {{/if}}
 
   <div class="search">
     <input type="text" id="query" value="{{query}}" />
@@ -8,7 +11,7 @@
   <div class="filters">
     Limit: <input type="number" id="limit" value="{{limit}}" />
     Page: <input type="number" id="page" value="{{page}}" />
-    Sort: <select name="sort" id="sort" value="{{order}}">
+    Order: <select name="order" id="order" value="{{order}}">
       <option value="1">Asc</option>
       <option value="-1">Desc</option>
     </select>
@@ -21,18 +24,18 @@
   </div>
 
   <div class="container">
-    {{#each payload}}
-      <div class="card">
-        <img class="product__image" src="{{this.thumbnails}}" alt="" />
-        <div class="card__content">
-          <h3>{{this.title}}</h3>
-          <p>{{this.description}}</p>
-          <p>${{this.price}}</p>
-          <p>Stock: {{this.stock}}</p>
-          <button class="addToCart" data-id="{{this._id}}">Add to cart</button>
+      {{#each payload}}
+        <div class="card">
+          <img class="product__image" src="{{this.thumbnails}}" alt="" />
+          <div class="card__content">
+            <h3>{{this.title}}</h3>
+            <p>{{this.description}}</p>
+            <p>${{this.price}}</p>
+            <p>Stock: {{this.stock}}</p>
+            <button class="addToCart" data-id="{{this._id}}">Add to cart</button>
+          </div>
         </div>
-      </div>
-    {{/each}}
+      {{/each}}
   </div>
   <div class="pagination">
     <span>Total Products: {{totalDocs}}</span>

@@ -3,13 +3,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link type="text/css" rel="stylesheet" href="/css/index.css">
+    {{#if style}}
+    <link type="text/css" rel="stylesheet" href="/css/{{style}}">
+    {{/if}}
     <title>{{title}}</title>
   </head>
   <body>
     <nav>
-      <section>
+      <section class="navbar">
         <a href="/">
-          <img class="logo" src="/img/logo.png" alt="" />
+          <span class="logo"></span>
           <h1 class="title">MyStore</h1>
         </a>
         <div class="menu">
@@ -17,6 +20,7 @@
           <li><a href="/chat">Chat</a></li>
           <li><a href="/realtimeproducts">Real Time</a></li>
           <li><a href="/carts"><img height="24px" src="/img/cart.svg" alt="cart"/></a></li>
+          <li><a href="/profile"><img height="24px" src="/img/user.svg" alt="cart"/></a></li>
         </div>
       </section>
     </nav>

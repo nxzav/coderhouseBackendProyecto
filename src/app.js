@@ -1,15 +1,18 @@
 import express from "express";
-import handlebars from "express-handlebars";
+import {engine} from "express-handlebars";
 import { Server } from "socket.io";
+import session from "express-session";
+import MongoStore from "connect-mongo";
 import "dotenv/config";
 
 import __dirname from "./utils.js";
 import { dbConnect } from "./dbconfig.js";
-
+// Routes
 import routerViews from "./routes/views.router.js";
 import routerProducts from "./routes/products.router.js";
 import routerCarts from "./routes/carts.router.js";
-
+import routerSession from "./routes/session.router.js";
+// Models
 import ProductModel from "./models/product.model.js";
 import MessageModel from "./models/chat.model.js";
 
@@ -19,11 +22,25 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
 
-app.engine("handlebars", handlebars.engine());
+// Mongo Storage
+app.use(
+  session({
+    store: MongoStore.create({
+      mongoUrl: process.env.DB_URI,
+      dbName: process.env.DB_NAME,
+    }),
+    secret: process.env.secret_session,
+    resave: true,
+    saveUninitialized: true,
+  })
+);
+
+app.engine('.hbs', engine({extname: '.hbs'}));
+app.set("view engine", "hbs");
 app.set("views", __dirname + "/views");
-app.set("view engine", "handlebars");
 
 app.use("/", routerViews);
+app.use("/api/session", routerSession);
 app.use("/api/products", routerProducts);
 app.use("/api/carts", routerCarts);
 

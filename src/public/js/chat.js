@@ -1,4 +1,4 @@
-const user = prompt("Insert email");
+const user = prompt('Ingresar usuario');
 const socket = io();
 
 const sendMessage = (message) => {
