@@ -1,12 +1,14 @@
 import express from "express";
 import {engine} from "express-handlebars";
 import { Server } from "socket.io";
+import passport from "passport";
 import session from "express-session";
 import MongoStore from "connect-mongo";
 import "dotenv/config";
-
+// Utils config
 import __dirname from "./utils.js";
-import { dbConnect } from "./dbconfig.js";
+import { dbConnect } from "./config/db.config.js";
+import initializePassport from "./config/passport.config.js";
 // Routes
 import routerViews from "./routes/views.router.js";
 import routerProducts from "./routes/products.router.js";
@@ -17,12 +19,16 @@ import ProductModel from "./models/product.model.js";
 import MessageModel from "./models/chat.model.js";
 
 const app = express();
-
+// Config express
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
+// Handlebars
+app.engine('.hbs', engine({extname: '.hbs'}));
+app.set("view engine", "hbs");
+app.set("views", __dirname + "/views");
 
-// Mongo Storage
+// Mongo Storage Session
 app.use(
   session({
     store: MongoStore.create({
@@ -34,22 +40,22 @@ app.use(
     saveUninitialized: true,
   })
 );
+// Passport initialize
+initializePassport();
+app.use(passport.initialize());
+app.use(passport.session());
 
-app.engine('.hbs', engine({extname: '.hbs'}));
-app.set("view engine", "hbs");
-app.set("views", __dirname + "/views");
-
+// App routing
 app.use("/", routerViews);
-app.use("/api/session", routerSession);
+app.use("/api/sessions", routerSession);
 app.use("/api/products", routerProducts);
 app.use("/api/carts", routerCarts);
 
-const PORT = process.env.PORT || 8080;
+// MongoDB connect
+dbConnect();
 
-await dbConnect();
-
-const httpServer = app.listen(PORT, () =>
-  console.log(`Running... PORT: ${PORT}`)
+const httpServer = app.listen(process.env.PORT, () =>
+  console.log(`Running... PORT: ${process.env.PORT}`)
 );
 const io = new Server(httpServer);
 

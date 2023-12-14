@@ -96,7 +96,7 @@ nav > section {
 
 .filters {
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 1fr 3fr;
   width: min(480px, 90%);
   margin: 1rem auto;
   padding: 1rem;
@@ -125,7 +125,7 @@ option {
 
 form {
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 1fr 3fr;
   font-size: 0.8rem;
 }
 
@@ -180,7 +180,7 @@ a:hover {
 .card {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  padding: 1rem;
+  padding: 0.4rem;
   margin-bottom: 1rem;
   border-radius: 1rem;
   border: solid 2px #33333333;

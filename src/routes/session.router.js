@@ -1,27 +1,37 @@
 import { Router } from "express";
-import UserModel from "../models/user.model.js";
+import passport from "passport";
 
 const router = Router();
 
-router.post("/login", async (req, res) => {
-  const { email, password } = req.body;
-  const user = await UserModel.findOne({ email, password });
+router.post("/login", passport.authenticate("login", { failureRedirect: "/login" }),
+  async (req, res) => {
+    if(!req.user) return res.status(400).send("Invalid credential");
 
-  if (!user) return res.status(404).send("<h1>User Not Found</h1>");
+    req.session.user = req.user;
+    return res.redirect("/profile");
+  }
+);
 
-  req.session.user = user;
-  return res.redirect("/");
+router.post("/register", passport.authenticate("register", {failureRedirect: "/register"}), async (req, res) => {
+  return res.redirect("/login");
 });
 
-router.post("/register", async (req, res) => {
-  const { password, confirmPassword } = req.body;
-  if (password !== confirmPassword) return res.send("<h1>Password do not match</h1>");
+router.get("/github",
+  passport.authenticate("github", { scope: ["user:email"] }),
+  async (req, res) => {}
+);
 
-  const user = req.body;
-  await UserModel.create(user);
+router.get("/githubcallback",
+  passport.authenticate("github", {failureRedirect: "/error"}),
+  (req, res) => {
+    console.log("Callback: ", req.user);
 
-  return res.redirect("/");
-});
+    req.session.user = req.user;
+    console.log("User session setted");
+
+    res.redirect("/");
+  }
+);
 
 router.get("/logout", (req, res) => {
   req.session.destroy((err) => {

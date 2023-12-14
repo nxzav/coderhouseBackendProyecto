@@ -1,6 +1,6 @@
 <div class="main-content">
   <h1>Register</h1>
-  <form class="register" action="/api/session/register" method="post">
+  <form class="register" action="/api/sessions/register" method="post">
 
     <label for="first_name">First Name: </label>
     <input id="first_name" type="text"  name="first_name" required>
@@ -11,9 +11,6 @@
     <label for="email">Email: </label>
     <input id="email" type="email" name="email" required>
 
-    <label for="age">Age: </label>
-    <input id="age" type="text" name="age" required>
-
     <label for="password">Password:</label>
     <input id="password" type="password"  name="password" required>
 
@@ -23,6 +20,10 @@
     <span></span>
     <button type="submit">Sign up</button>
 
+    <span></span>
     <p>Have an account? <a href="/login">Log in</a></p>
+
+    <span></span>
+    <a href="/api/sessions/github">Sign up using GitHub</a>
   </form>
 </div>
