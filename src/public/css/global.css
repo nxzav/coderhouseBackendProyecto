@@ -1,36 +1,46 @@
-@import url("https://fonts.googleapis.com/css2?family=Chakra+Petch&family=Montserrat&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap');
 
 * {
-  font-family: "Segoe UI", sans-serif;
-}
-
-h1 {
-  text-align: center;
-  font-size: 1.8rem;
-  font-weight: normal;
-  font-family: "Chakra Petch", sans-serif;
-}
-
-h3 {
-  text-align: center;
-}
-
-.title {
-  margin: 1rem auto;
-  font-size: 1.4rem;
-  font-weight: bold;
-  color: #fff;
+  font-family: "Roboto Condensed", sans-serif;
 }
 
 body {
   margin: 0;
 }
 
+h1 {
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 1.8rem;
+}
+
+h3 {
+  text-align: center;
+}
+
+a {
+  color: #ffb134;
+  font-size: 1rem;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+a:hover {
+  cursor: pointer;
+}
+
+.title {
+  margin: 0.6rem auto;
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #fff;
+}
+
 button {
   display: block;
+  height: 2rem;
   border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 4px 6px;
+  border-radius: 1rem;
   background-color: #fff;
   color: #000;
   transition: all 0.1s;
@@ -82,36 +92,45 @@ nav > section {
 
 .search {
   display: flex;
-  width: min(480px, 90%);
+  box-sizing: border-box;
+  width: min(100%, 480px);
   margin: 0 auto;
+  padding: 1rem;
   flex-direction: column;
   place-content: center;
   text-align: center;
+  box-shadow: 0 3px 6px 2px #eee;
+  border-radius: 1rem;
 }
 
-.search > * {
+.search > input {
+  height: 2rem;
+  padding-left: 1rem;
   border: 1px solid #ddd;
   margin-bottom: 4px;
+  border-radius: 1rem;
 }
 
 .filters {
   display: grid;
   grid-template-columns: 1fr 3fr;
-  width: min(480px, 90%);
-  margin: 1rem auto;
-  padding: 1rem;
+  align-items: center;
   text-align: center;
-  border: 2px solid #ddd;
+  width: min(100%, 480px);
+  box-sizing: border-box;
+  padding: 1rem;
+  margin: 0 auto;
   border-radius: 1rem;
+  box-shadow: 0 3px 6px 2px #eee;
 }
 
 .filters > input,
 .filters > select {
-  margin: 4px auto;
-  width: 100%;
+  height: 2rem;
+  margin: 0.2rem 0;
+  padding: 0.5rem 0.8rem;
+  border-radius: 1rem;
   border: 1px solid #ddd;
-  border-radius: 0.2rem;
-  padding-left: 0.2rem;
 }
 
 #query,
@@ -123,58 +142,36 @@ option {
   color: #222;
 }
 
-form {
+/* form {
   display: grid;
   grid-template-columns: 1fr 3fr;
   font-size: 0.8rem;
-}
+} */
 
 form > input {
-  margin-bottom: 4px;
-  border: solid 1px #aaaaaa;
-  background: #eeeeee;
+  width: 100%;
+  margin-bottom: 0.5rem;
 }
 
 form > button {
   margin-top: 20px;
 }
 
-a {
-  color: #ffb134;
-  font-size: 1rem;
-  font-weight: bold;
-  text-decoration: none;
-}
-
-a:hover {
-  cursor: pointer;
-}
-
 .main-content {
-  position: relative;
-  justify-content: center;
-  align-items: center;
+  display: flex;
+  flex-direction: column;
   padding: 0 1rem;
   height: 100vh;
+  align-items: center;
 }
 
-.container {
-  padding: 1rem;
+.grid {
   position: relative;
-  margin: 0 auto;
+  margin-top: 1rem;
   display: grid;
-  max-width: 1200px;
+  width: min(100%, 1200px);
   grid-template-columns: repeat(3, 1fr);
-  column-gap: 30px;
-}
-
-.form-container {
-  margin: 0 auto 2rem auto;
-  width: 50%;
-  padding: 0 2rem;
-  border-radius: 0.6rem;
-  background: #ffffff;
-  border: solid 2px #ddd;
+  column-gap: 3rem;
 }
 
 .card {
@@ -183,8 +180,10 @@ a:hover {
   padding: 0.4rem;
   margin-bottom: 1rem;
   border-radius: 1rem;
-  border: solid 2px #33333333;
-  font-size: 0.8rem;
+  border: none;
+  background-color: #fff;
+  box-shadow: 0 3px 3px 2px #eee;
+  font-size: 0.9rem;
 }
 
 .card > * {
@@ -211,7 +210,10 @@ a:hover {
 
 .product__image {
   place-self: center;
-  height: 120px;
+  width: 100%;
+  max-height: 120px;
+  object-fit: contain;
+  box-sizing: border-box;
 }
 
 .pagination {
@@ -228,49 +230,22 @@ a:hover {
 }
 
 .navButtons {
-  width: 100%;
   display: flex;
   justify-content: center;
   gap: 2rem;
 }
 
-.cart {
-  margin: 1rem 0;
-  padding: 2rem;
-  background-color: #eeeeee;
-}
-
-.cart__link {
-  color: #444;
-}
-
-.login, .register {
-  margin: 0 auto;
-  width: 480px;
-}
-
 @media (max-width: 1024px) {
-  .container {
+  .grid {
     grid-template-columns: repeat(2, 1fr);
-  }
-
-  .form-container {
-    width: 80%;
   }
 }
 
 @media (max-width: 720px) {
-  .container {
+  .grid {
     grid-template-columns: 1fr;
   }
   #products {
     display: none;
-  }
-  .filters {
-    width: 85%;
-  }
-
-  .login, .register {
-    width: 100%;
   }
 }

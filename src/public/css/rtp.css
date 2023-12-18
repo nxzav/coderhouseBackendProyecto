@@ -1,0 +1,35 @@
+.form-container {
+  width: min(100%, 480px);
+  box-sizing: border-box;
+  padding: 0 2rem;
+  margin: 0 auto;
+  border-radius: 0.6rem;
+  /* background: #f7f7f7; */
+  box-shadow: 0px 3px 4px 3px #eee;
+}
+
+.form-create > input {
+  height: 2rem;
+  padding: 0.5rem 0.8rem;
+  border-radius: 1rem;
+  border: 1px solid #ddd;
+  /* box-shadow: inset 4px 4px 4px #ddd, inset -3px -3px 4px #fff;
+  background-color: #f7f7f7; */
+}
+
+.form-create > select {
+  height: 2rem;
+  padding: 0.5rem 0.8rem;
+  border: 1px solid #ddd;
+  background-color: #f7f7f7;
+}
+
+.form__btn {
+  display: block;
+  width: 100%;
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  background-color: #fb3;
+}

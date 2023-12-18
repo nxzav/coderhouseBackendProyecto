@@ -1,0 +1,36 @@
+.login,
+.register {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  margin: 4rem auto;
+  width: min(95%, 480px);
+  background: #f7f7f7;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 4px 4px 4px #00000011;
+}
+
+.login > input,
+.register > input {
+  height: 2rem;
+  padding: 0.5rem 0.8rem;
+  border-radius: 1rem;
+  border: none;
+  box-shadow: inset 4px 4px 4px #ddd, inset -3px -3px 4px #fff;
+  background-color: #f7f7f7;
+}
+
+.login > button,
+.register > button {
+  height: 2rem;
+  border-radius: 1rem;
+  box-shadow: 4px 4px 4px #ddd, -3px -3px 4px #fff;
+  transition: all 0.2s;
+}
+
+.login > button:hover,
+.register > button:hover {
+  background-color: #fff;
+  box-shadow: none;
+}

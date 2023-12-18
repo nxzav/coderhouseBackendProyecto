@@ -1,29 +1,13 @@
-<div class="main-content">
+<form class="register" action="/api/sessions/register" method="post">
   <h1>Register</h1>
-  <form class="register" action="/api/sessions/register" method="post">
+  <input id="first_name" type="text"  name="first_name" placeholder="First name" required>
+  <input id="last_name" type="text"  name="last_name" placeholder="Last name" required>
+  <input id="email" type="email" name="email" placeholder="Email" required>
+  <input id="password" type="password"  name="password" placeholder="Password" required>
+  <input id="confirmPassword" type="password"  name="confirmPassword" placeholder="Confirm password" required>
+  
+  <button type="submit">Sign up</button>
 
-    <label for="first_name">First Name: </label>
-    <input id="first_name" type="text"  name="first_name" required>
-
-    <label for="last_name">Last Name: </label>
-    <input id="last_name" type="text"  name="last_name" required>
-
-    <label for="email">Email: </label>
-    <input id="email" type="email" name="email" required>
-
-    <label for="password">Password:</label>
-    <input id="password" type="password"  name="password" required>
-
-    <label for="confirmPassword">Confirm Password:</label>
-    <input id="confirmPassword" type="password"  name="confirmPassword" required>
-    
-    <span></span>
-    <button type="submit">Sign up</button>
-
-    <span></span>
-    <p>Have an account? <a href="/login">Log in</a></p>
-
-    <span></span>
-    <a href="/api/sessions/github">Sign up using GitHub</a>
-  </form>
-</div>
+  <p>Have an account? <a href="/login">Log in</a></p>
+  <a href="/api/sessions/github">Sign up using GitHub</a>
+</form>

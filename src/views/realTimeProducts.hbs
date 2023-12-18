@@ -1,34 +1,25 @@
-<div class="main-content">
-  <h1>Real Time Products</h1>
+<h1>Real Time Products</h1>
 
-  <div class="form-container">
-    <h3>Create product</h3>
-    <form id="form">
-      <label for="title">Title:</label>
-      <input id="title" name="title" type="text" />
-      <label for="description">Description:</label>
-      <input id="description" name="description" type="text" />
-      <label for="code">Code:</label>
-      <input id="code" name="code" type="text" />
-      <label for="price">Price:</label>
-      <input id="price" name="price" type="number" />
-      <label for="stock">Stock:</label>
-      <input id="stock" name="stock" type="number" />
-      <label for="category">Category:</label>
-      <input id="category" name="category" type="text" />
-      <label for="thumbnails">Thumbnails:</label>
-      <input id="thumbnails" name="thumbnails" type="text" />
-      <label for="status">Status:</label>
-      <select name="status" id="status">
-        <option value="true">Available</option>
-        <option value="false">Unavailable</option>
-      </select>
-      <span></span>
-      <button type="submit">Add Product</button>
-    </form>
-  </div>
-  <div id="box" class="container"></div>
+<div class="form-container">
+  <h3>Create product</h3>
+  <form class="form-create" id="form">
+    <input id="title" name="title" type="text" placeholder="Title"/>
+    <input id="description" name="description" type="text" placeholder="Description"/>
+    <input id="code" name="code" type="text" placeholder="Code"/>
+    <input id="price" name="price" type="number" placeholder="Price" />
+    <input id="stock" name="stock" type="number" placeholder="Stock" />
+    <input id="category" name="category" type="text" placeholder="Category"/>
+    <input id="thumbnails" name="thumbnails" type="text" placeholder="Thumbnails"/>
+    <label for="status">Status:</label>
+    <select name="status" id="status">
+      <option value="true">Available</option>
+      <option value="false">Unavailable</option>
+    </select>
+    <span></span>
+    <button class="form__btn" type="submit">Add product</button>
+  </form>
 </div>
+<div id="box" class="grid"></div>
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/realTimeProducts.js"></script>

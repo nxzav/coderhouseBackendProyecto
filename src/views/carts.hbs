@@ -1,21 +1,19 @@
-<div class="container">
-  {{#each carts}}
-    <div class="cart">
-      <a class="cart__link" href="/carts/{{_id}}">
-        <h2>Cart</h2>
-      </a>
-      {{#each products}}
-        <hr />
-        <div>
-          <div>
-           <b>Product: {{product.title}}</b> 
-            <br />
-            Description: {{product.description}} <br>
-            ${{product.price}} <br />
-            <span>Qty: {{quantity}}</span>
-          </div>
+<h1>Cart list</h1>
+{{#each carts}}
+  <div class="cart">
+    {{#each products}}
+    <div class="cart__single-product">
+        <img class="cart__product-image" src="{{product.thumbnails}}" alt="">
+        <div class="cart__info">
+          <b>{{product.title}}</b>
+          <span>{{product.description}}</span> 
+          <span>Qty: {{quantity}}</span>
+          <b> ${{product.price}}</b>
         </div>
-      {{/each}}
-    </div>
-  {{/each}}
-</div>
+      </div>
+    {{/each}}
+    <a href="/carts/{{_id}}">
+      <button class="cart__btn">Go to cart</button>
+    </a>
+  </div>
+{{/each}}

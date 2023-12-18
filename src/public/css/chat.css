@@ -1,0 +1,22 @@
+.chat {
+  display: flex;
+  flex-direction: column;
+  width: min(100%, 480px);
+  margin: 0 auto;
+}
+
+#chatInput {
+  height: 2rem;
+  padding: 0.5rem 0.8rem;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 1rem;
+}
+
+#chatBox {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 1rem;
+  background-color: #f7f7f7;
+}

@@ -1,4 +1,25 @@
 .profile {
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
+  width: min(100%, 480px);
+  background: #f7f7f7;
+  border-radius: 1rem;
+  padding: 2rem;
+  margin: 0 auto;
+  box-shadow: 4px 4px 4px #00000011;
+}
+
+.profile__info {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile__avatar {
+  width: 200px;
+  align-self: center;
+  margin-bottom: 1rem;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  background-color: #fff;
 }

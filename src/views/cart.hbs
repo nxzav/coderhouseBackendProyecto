@@ -1,18 +1,17 @@
-<div class="container">
-  <div class="cart">
-    <h3>Cart: {{_id}}</h3>
-    {{#each products}}
-      <hr />
-      Product: {{product.title}} <br />
-      Description: {{product.description}} <br />
-      Code: {{product.code}} <br />
-      Price: ${{product.price}} <br />
-      Stock: {{product.stock}} <br />
-      Category: {{product.category}} <br />
-      Status: {{product.status}} <br />
-      Quantity: {{quantity}}
-      <br /><br />
-    {{/each}}
-    <button id="deleteCart">Clear cart</button>
+<div class="cart">
+  <h3>Cart: {{cart._id}}</h3>
+  {{#each cart.products}}
+  <img class="cart__product-image" src="{{product.thumbnails}}" alt="">
+  <div class="cart__info">
+    <span>Product: {{product.title}}</span>
+    <span>Description: {{product.description}}</span>
+    <span>Code: {{product.code}}</span>
+    <span>Price: ${{product.price}}</span>
+    <span>Stock: {{product.stock}}</span>
+    <span>Category: {{product.category}}</span>
+    <span>Status: {{product.status}}</span>
+    <span>Quantity: {{quantity}}</span>
   </div>
+  {{/each}}
+  <button class="cart__btn" id="deleteCart">Clear cart</button>
 </div>

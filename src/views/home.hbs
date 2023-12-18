@@ -1,56 +1,53 @@
-<div class="main-content">
-  <h1>Products</h1>
-  {{#if user_name}}
-    <h3>Welcome {{user_name}} 😄</h3>
-  {{/if}}
+<h1>Products</h1>
+{{#if user_name}}
+  <h3>Welcome {{user_name}} 😄</h3>
+{{/if}}
 
-  <div class="search">
-    <input type="text" id="query" value="{{query}}" />
-    <button id="searchBtn">Search</button>
-  </div>
-  <div class="filters">
-    Limit: <input type="number" id="limit" value="{{limit}}" />
-    Page: <input type="number" id="page" value="{{page}}" />
-    Order: <select name="order" id="order" value="{{order}}">
-      <option value="1">Asc</option>
-      <option value="-1">Desc</option>
-    </select>
-    Status: <select name="status" id="status" value="{{available}}">
-      <option value="true">Available</option>
-      <option value="false">Unavailable</option>
-    </select>
-    <span></span>
-    <button id="filterBtn"><b>Filter</b></button>
-  </div>
+<div class="search">
+  <input type="text" id="query" value="{{query}}" placeholder="Search a product"/>
+  <button id="searchBtn">Search</button>
+</div>
+<div class="filters">
+  Limit:<input type="number" id="limit" value="{{limit}}" />
+  Page: <input type="number" id="page" value="{{page}}" />
+  Order: <select name="order" id="order" value="{{order}}">
+    <option value="1">Asc</option>
+    <option value="-1">Desc</option>
+  </select>
+  Status: <select name="status" id="status" value="{{available}}">
+    <option value="true">Available</option>
+    <option value="false">Unavailable</option>
+  </select>
+  <span></span>
+  <button id="filterBtn"><b>Filter</b></button>
+</div>
 
-  <div class="container">
-      {{#each payload}}
-        <div class="card">
-          <img class="product__image" src="{{this.thumbnails}}" alt="" />
-          <div class="card__content">
-            <h3>{{this.title}}</h3>
-            <p>{{this.description}}</p>
-            <p>${{this.price}}</p>
-            <p>Stock: {{this.stock}}</p>
-            <button class="addToCart" data-id="{{this._id}}">Add to cart</button>
-          </div>
+<div class="grid">
+    {{#each payload}}
+      <div class="card">
+        <img class="product__image" src="{{this.thumbnails}}" alt="" />
+        <div class="card__content">
+          <h3>{{this.title}}</h3>
+          <p>{{this.description}}</p>
+          <p>${{this.price}}</p>
+          <p>Stock: {{this.stock}}</p>
+          <button class="addToCart" data-id="{{this._id}}">Add to cart</button>
         </div>
-      {{/each}}
+      </div>
+    {{/each}}
+</div>
+<div class="pagination">
+  <span>Total Products: {{totalDocs}}</span>
+  <br />
+  <span style="margin-bottom: 1rem;">Page: {{page}} / {{totalPages}}</span>
+  <div class="navButtons">
+    {{#if hasPrevPage}}
+      <a id="prevPage" data-page="{{prevPage}}"><button>Previus</button></a>
+    {{/if}}
+    {{#if hasNextPage}}
+      <a id="nextPage" data-page="{{nextPage}}"><button>Next</button></a>
+    {{/if}}
   </div>
-  <div class="pagination">
-    <span>Total Products: {{totalDocs}}</span>
-    <br />
-    <span style="margin-bottom: 1rem;">Page: {{page}} / {{totalPages}}</span>
-    <div class="navButtons">
-      {{#if hasPrevPage}}
-        <a id="prevPage" data-page="{{prevPage}}"><button>Previus</button></a>
-      {{/if}}
-      {{#if hasNextPage}}
-        <a id="nextPage" data-page="{{nextPage}}"><button>Next</button></a>
-      {{/if}}
-    </div>
-  </div>
-
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
