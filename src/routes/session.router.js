@@ -5,7 +5,7 @@ const router = Router();
 
 router.post("/login", passport.authenticate("login", { failureRedirect: "/login" }),
   async (req, res) => {
-    if(!req.user) return res.status(400).send("Invalid credential");
+    if(!req.user) return res.status(400).send("Invalid credentials");
 
     req.session.user = req.user;
     return res.redirect("/profile");
@@ -30,6 +30,13 @@ router.get("/githubcallback",
     console.log("User session setted");
 
     res.redirect("/");
+  }
+);
+
+router.get('/current',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    res.send({ status: 'success', payload: req.user });
   }
 );
 

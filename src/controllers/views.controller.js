@@ -69,3 +69,10 @@ export const registerGet = async (req = request, res = response) => {
   }
   return res.render('register', {style: 'session.css'});
 };
+
+export const loginjwtView = async (req = request, res = response) => {
+  if (req.session?.user) {
+    return res.redirect('/profile');
+  }
+  return res.render('loginjwt', {style: 'session.css'});
+};

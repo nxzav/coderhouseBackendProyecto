@@ -2,12 +2,32 @@ import passport from "passport";
 import UserModel from "../models/user.model.js";
 import local from "passport-local";
 import GitHubStrategy from "passport-github2";
+import passportJWT from 'passport-jwt';
 import { createHash, isValidPassword } from "../utils.js";
 import "dotenv/config";
 
+const JWTStrategy = passportJWT.Strategy;
 const LocalStrategy = local.Strategy;
 
+const cookieExtractor = (req) => {
+  const token = (req?.cookies) ? req.cookies['coderCookie'] : null;
+
+  console.log({cookies: req.cookies});
+  console.log('COOKIE EXTRACTOR: ', token);
+  return token;
+}
+
 const initializePassport = () => {
+
+  // JsonWebToken
+  passport.use('jwt', new JWTStrategy({
+    secretOrKey: process.env.JWTKey,
+    jwtFromRequest: passportJWT.ExtractJwt.fromExtractors([cookieExtractor]),
+  }, (jwt_payload, done) => {
+    console.log(jwt_payload);
+    return done(null, jwt_payload);
+  }));
+
   // Local
   passport.use("register", new LocalStrategy({
     passReqToCallback: true,

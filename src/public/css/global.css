@@ -1,11 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap');
 
 * {
-  font-family: "Roboto Condensed", sans-serif;
+  font-family: 'Roboto Condensed', sans-serif;
+  /* Remover */
+  /* background-color: #222; */
+  /* color: #bbb; */
 }
 
 body {
   margin: 0;
+  /* Remover */
+  /* background-color: #000; */
+}
+
+.title,
+.menu > li > a {
+  text-shadow: 1px 1px 2px #00000099;
 }
 
 h1 {
@@ -54,7 +64,7 @@ button:hover {
 nav {
   width: 100%;
   /* background: #0071DC; */
-  background: #ffb134;
+  background-color: #ffb134;
   display: flex;
   justify-content: center;
 }
