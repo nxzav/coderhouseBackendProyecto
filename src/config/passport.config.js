@@ -1,10 +1,10 @@
 import passport from "passport";
-import UserModel from "../models/user.model.js";
+import UserModel from "../models/user.model.OLD.js";
 import local from "passport-local";
 import GitHubStrategy from "passport-github2";
 import passportJWT from 'passport-jwt';
 import { createHash, isValidPassword } from "../utils.js";
-import "dotenv/config";
+import config from "./config.js";
 
 const JWTStrategy = passportJWT.Strategy;
 const LocalStrategy = local.Strategy;
@@ -21,7 +21,7 @@ const initializePassport = () => {
 
   // JsonWebToken
   passport.use('jwt', new JWTStrategy({
-    secretOrKey: process.env.JWTKey,
+    secretOrKey: config.JWTKey,
     jwtFromRequest: passportJWT.ExtractJwt.fromExtractors([cookieExtractor]),
   }, (jwt_payload, done) => {
     console.log(jwt_payload);
@@ -83,9 +83,9 @@ passport.use("login", new LocalStrategy({
 
   // GitHub
   passport.use("github", new GitHubStrategy({
-    clientID: process.env.clientID,
-    clientSecret: process.env.clientSecret,
-    callbackURL: process.env.callbackURL,
+    clientID: config.clientID,
+    clientSecret: config.clientSecret,
+    callbackURL: config.callbackURL,
   }, async (accessToken, refreshToken, profile, done) => {
     console.log(profile);
 

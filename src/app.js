@@ -5,10 +5,10 @@ import passport from 'passport';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
 import cookieParser from 'cookie-parser';
-import 'dotenv/config';
+import config from './config/config.js';
 // Utils config
 import __dirname from './utils.js';
-import { dbConnect } from './config/db.config.js';
+// import { dbConnect } from './config/db.config.js';
 import initializePassport from './config/passport.config.js';
 // Routes
 import routerViews from './routes/views.router.js';
@@ -16,10 +16,11 @@ import routerProducts from './routes/products.router.js';
 import routerCarts from './routes/carts.router.js';
 import routerSession from './routes/session.router.js';
 import routerJWT from './routes/jwt.router.js';
-// Models
-import ProductModel from './models/product.model.js';
-import MessageModel from './models/chat.model.js';
-
+// Services
+import { ProductService, MessageService } from './services/index.js';
+// import ProductModel from './models/product.model.js';
+// import MessageModel from './models/chat.model.js';
+// Initialize express
 const app = express();
 // Config express
 app.use(express.json());
@@ -35,10 +36,10 @@ app.set('views', __dirname + '/views');
 app.use(
   session({
     store: MongoStore.create({
-      mongoUrl: process.env.DB_URI,
-      dbName: process.env.DB_NAME,
+      mongoUrl: config.mongoURI,
+      dbName: config.mongoDBName,
     }),
-    secret: process.env.secret_session,
+    secret: config.secretSession,
     resave: true,
     saveUninitialized: true,
   })
@@ -57,15 +58,13 @@ app.use('/api/products', routerProducts);
 app.use('/api/carts', routerCarts);
 
 // MongoDB connect
-dbConnect();
+// dbConnect();
 
-const httpServer = app.listen(process.env.PORT, () =>
-  console.log(`Running... PORT: ${process.env.PORT}`)
-);
+const httpServer = app.listen(config.port, () => console.log('Running...'));
 const io = new Server(httpServer);
 
-const getProducts = () => ProductModel.find().lean().exec();
-const getMessages = () => MessageModel.find().lean().exec();
+const getProducts = () => ProductService.getProducts();
+const getMessages = () => MessageService.getMessages();
 
 io.on('connection', async (socket) => {
   console.log('New Socket');

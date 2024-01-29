@@ -1,6 +1,5 @@
 import { request, response } from "express";
 import ProductModel from "../models/product.model.js";
-import UserModel from "../models/user.model.js";
 
 export const getProducts = async ({limit = 10, page = 1, order = 1, query, available = true}) => {
   try {

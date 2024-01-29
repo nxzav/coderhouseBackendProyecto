@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-import 'dotenv/config';
+import config from './config/config.js';
 
 export default __dirname;
 
@@ -17,11 +17,5 @@ export const isValidPassword = (user, password) => {
 };
 
 export const generateToken = (user) => {
-  return jwt.sign(user, process.env.JWTKey, { expiresIn: '1h' });
+  return jwt.sign(user, config.JWTKey, { expiresIn: '1h' });
 };
-
-// export const generateToken = (user) => {
-//   const token = jwt.sign({user}, process.env.JWTKey, {expiresIn: '24h'});
-
-//   return token;
-// }

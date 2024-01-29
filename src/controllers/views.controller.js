@@ -1,7 +1,7 @@
 import { request, response } from 'express';
 import { getProducts } from './products.controller.js';
-import MessageModel from '../models/chat.model.js';
-import CartModel from '../models/cart.model.js';
+import { MessageService, CartService } from '../services/index.js';
+// import CartModel from '../models/cart.model.js';
 
 export const homeView = async (req = request, res = response) => {
   try {
@@ -26,22 +26,21 @@ export const rtpView = async (req = request, res = response) => {
 };
 
 export const chatView = async (req = request, res = response) => {
-  const messages = await MessageModel.find().lean().exec();
+  const messages = await MessageService.getMessages();
+
   return res.render('chat', {messages, title: 'Chat', style: 'chat.css' });
 };
 
 export const cartsView = async (req = request, res = response) => {
-  const carts = await CartModel.find({})
-    .populate('products.product')
-    .lean()
-    .exec();
+  const carts = await CartService.getCarts();
 
   return res.render('carts', { title: 'Carts', carts, style: 'cart.css' });
 };
 
 export const singleCartView = async (req = request, res = response) => {
   try {
-    const cart = await CartModel.findOne({ _id: req.params.cid }).lean().exec();
+    // const cart = await CartModel.findOne({ _id: req.params.cid }).lean().exec();
+    const cart = await CartService.getCartById(req.params.cid)
     console.log(cart)
     return res.render('cart', {cart, title: 'Single Cart', style: 'cart.css'});
   } catch (error) {
