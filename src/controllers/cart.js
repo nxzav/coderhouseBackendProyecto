@@ -1,4 +1,4 @@
-import { CartService } from '../repositories/index.js';
+import { CartService, ProductService } from '../repositories/index.js';
 
 export const getCarts = async (req, res) => {
   const result = await CartService.getCarts();
@@ -10,57 +10,73 @@ export const getCartById = async (req, res) => {
   try {
     const { cid } = req.params;
     const result = await CartService.getCartById(cid);
-  
+
     return res.json({ status: 'success', payload: result });
   } catch (error) {
-    console.log("View cart: ", error);
-    return res.status(500).json({ msg: "Internal Server Error" });
+    console.log('View cart: ', error);
+    return res.status(500).json({ msg: 'Internal Server Error' });
   }
 };
 
 export const createCart = async (req, res) => {
   try {
     const result = await CartService.createCart({});
-  
+
     return res.json({ status: 'success', payload: result });
   } catch (error) {
-    console.log("Create cart: ", error);
-    return res.status(500).json({ msg: "Internal Server Error" });
+    console.log('Create cart: ', error);
+    return res.status(500).json({ msg: 'Internal Server Error' });
   }
 };
 
 export const addProductInCart = async (req, res) => {
   try {
     const { cid, pid } = req.params;
-    const result = await CartService.getCartById(cid);
-    console.log(result);
+    const productExists = await ProductService.getProductById(pid);
+
+    if (!productExists)
+      return res.status(400).json({ ok: false, msg: 'El producto no existe' });
+
+    const result = await CartService.addProductInCart(cid, pid);
 
     if (!result)
-      return res.status(404).json({ msg: `Cart with id ${cid} does not exist` });
+      return res.status(404).json({ msg: `El carrito con id ${cid} no existe!` });
 
-    const isProductInCart = result.products.find(e => e.product._id.toString() === pid);
-    console.log({isProductInCart});
-    if (isProductInCart)
-      isProductInCart.quantity++;
-    else result.products.push({ product: pid, quantity: 1 });
-
-    result.save();
-
-    return res.json({ msg: "Cart updated", result });
+    return res.json({ result });
   } catch (error) {
-    console.log("Add Product: ", error);
-    return res.status(500).json({ msg: "Internal Server Error" });
+    console.log('Add Product: ', error);
+    return res.status(500).json({ msg: 'Internal Server Error' });
   }
 };
 
-export const deleteProductFromCart = async (req, res) => {
+export const deleteProductInCart = async (req, res) => {
   try {
-    const result = await CartService.getCartById(cid)
     const { cid, pid } = req.params;
-  
-    return res.json({ status: 'success', payload: result });
+    const productExists = await ProductService.getProductById(pid);
+    if (!productExists) return res.status(400).json({ msg: 'El producto no existe' });
+    const result = await CartService.deleteProductInCart(cid, pid);
+
+    return res.json({ result });
   } catch (error) {
-    console.log("Delete Product: ", error);
-    return res.status(500).json({ msg: "Internal Server Error" });
+    console.log('Delete Product: ', error);
+    return res.status(500).json({ msg: 'Internal Server Error' });
   }
 };
+
+export const updateProductInCart = async (req, res) => {
+  const { cid, pid } = req.params;
+  const { quantity } = req.body;
+  const productExists = await ProductService.getProductById(pid);
+  if (!productExists)
+    return res.status(400).json({ msg: 'El producto no existe' });
+  const result = await CartService.updateProductInCart(cid, pid, quantity);
+
+  return res.json({ result });
+};
+
+export const deleteAllProductsInCart = async (req, res) => {
+  const { cid } = req.params;
+  const result = await CartService.deleteAllProductsInCart(cid);
+
+  return res.json({result});
+}
