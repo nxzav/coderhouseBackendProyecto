@@ -9,7 +9,7 @@ import {
 
 const router = Router();
 
-router.get('/', getCarts);
+router.get('/', getCarts)
 router.get('/:cid', getCartById);
 router.post('/', createCart);
 router.post('/:cid/product/:pid', addProductInCart);

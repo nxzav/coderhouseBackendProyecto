@@ -1,4 +1,4 @@
-import { CartService } from '../services/index.js';
+import { CartService } from '../repositories/index.js';
 
 export const getCarts = async (req, res) => {
   const result = await CartService.getCarts();
@@ -55,8 +55,8 @@ export const addProductInCart = async (req, res) => {
 
 export const deleteProductFromCart = async (req, res) => {
   try {
+    const result = await CartService.getCartById(cid)
     const { cid, pid } = req.params;
-    const result = { cid, pid };
   
     return res.json({ status: 'success', payload: result });
   } catch (error) {
