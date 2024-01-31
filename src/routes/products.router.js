@@ -6,7 +6,7 @@ import {
   getProductById,
   getProducts,
   updateProduct,
-} from "../controllers/product.js";
+} from '../controllers/product.controller.js';
 
 const router = Router();
 
@@ -16,4 +16,4 @@ router.post("/", addProduct);
 router.put("/:pid", updateProduct);
 router.delete("/:pid", deleteProduct);
 
-export default router;
+export {router as productRouter};

@@ -5,5 +5,6 @@ export default class UserRepository {
 
   getUsers = async () => this.dao.getUsers();
   getUserById = async (id) => this.dao.getUserById(id);
-  register = async (user) => this.dao.saveUser(user);
+  getUserByEmail = async (email) => this.dao.getUserByEmail(email);
+  registerUser = async (user) => this.dao.registerUser(user);
 }

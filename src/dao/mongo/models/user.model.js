@@ -13,10 +13,6 @@ const UserModel = mongoose.model('users', new mongoose.Schema({
   },
   status: { type: Boolean, default: true },
   creationDate: { type: Date, default: Date.now },
-  cart_id: {
-    type: mongoose.SchemaTypes.ObjectId,
-    ref: 'carts'
-  }
 }));
 
 export default UserModel;

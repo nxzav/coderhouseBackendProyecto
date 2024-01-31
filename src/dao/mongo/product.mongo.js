@@ -1,7 +1,13 @@
 import ProductModel from './models/product.model.js';
 
 export default class Product {
-  getProducts = async ({ limit = 10, page = 1, order = 1, query, available = true }) => {
+  getProducts = async ({
+    limit = 10,
+    page = 1,
+    order = 1,
+    query,
+    available = true,
+  }) => {
     limit = Number(limit);
     page = Number(page);
     order = Number(order);
@@ -40,10 +46,11 @@ export default class Product {
     return result;
   };
 
-  getProductById = async (pid) => ProductModel.findById(pid);
-  saveProduct = async (product) => ProductModel.create(product);
+  getProductById = async (pid) => await ProductModel.findById(pid);
+  getProductByCode = async (code) => await ProductModel.findOne({ code });
+  saveProduct = async (product) => await ProductModel.create({ ...product });
   updateProduct = async (pid, product) => {
-    return ProductModel.findByIdAndUpdate(pid, { ...product }, { new: true });
+    return await ProductModel.findByIdAndUpdate(pid, { ...product }, { new: true });
   };
-  deleteProduct = async (pid) => ProductModel.findByIdAndDelete(pid);
+  deleteProduct = async (pid) => await ProductModel.findByIdAndDelete(pid);
 }
