@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router } from 'express';
 
 import {
   addProduct,
@@ -7,13 +7,14 @@ import {
   getProducts,
   updateProduct,
 } from '../controllers/product.controller.js';
+import { isAdmin, verifyToken } from '../middleware/auth.middleware.js';
 
 const router = Router();
 
-router.get("/", getProducts);
-router.get("/:pid", getProductById);
-router.post("/", addProduct);
-router.put("/:pid", updateProduct);
-router.delete("/:pid", deleteProduct);
+router.get('/', verifyToken, getProducts);
+router.get('/:pid', verifyToken, getProductById);
+router.post('/', [verifyToken, isAdmin], addProduct);
+router.put('/:pid', [verifyToken, isAdmin], updateProduct);
+router.delete('/:pid', [verifyToken, isAdmin], deleteProduct);
 
-export {router as productRouter};
+export { router as productRouter };
