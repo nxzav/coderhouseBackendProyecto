@@ -18,8 +18,8 @@ router.get('/:cid', verifyToken, getCartById);
 router.post('/', verifyToken, createCart);
 router.post('/:cid/product/:pid', verifyToken, addProductInCart);
 router.put('/:cid/product/:pid', verifyToken, updateProductInCart);
-router.post('/:cid/purchase', verifyToken, completePurchase);
 router.delete('/:cid', verifyToken, deleteAllProductsInCart);
 router.delete('/:cid/product/:pid', verifyToken, deleteProductInCart);
+router.post('/:cid/purchase', verifyToken, completePurchase);
 
 export { router as cartRouter };

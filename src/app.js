@@ -8,7 +8,6 @@ import cookieParser from 'cookie-parser';
 import config from './config/config.js';
 // Utils config
 import __dirname from './utils.js';
-// import { dbConnect } from './config/db.config.js';
 import initializePassport from './config/passport.config.js';
 // Routes
 import routerViews from './routes/views.router.js';
@@ -18,8 +17,6 @@ import routerSession from './routes/session.router.js';
 import routerJWT from './routes/jwt.router.js';
 // Services
 import { ProductService, MessageService } from './services/index.js';
-// import ProductModel from './models/product.model.js';
-// import MessageModel from './models/chat.model.js';
 // Initialize express
 const app = express();
 // Config express

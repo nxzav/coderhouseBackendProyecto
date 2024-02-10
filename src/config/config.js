@@ -12,4 +12,5 @@ export default {
   clientSecret: process.env.CLIENT_SECRET,
   callbackURL: process.env.CALLBACK_URL,
   JWTKey: process.env.JWT_KEY,
+  nodeENV: process.env.NODE_ENV,
 };
