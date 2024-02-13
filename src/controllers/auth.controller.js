@@ -1,5 +1,6 @@
 import { CartService, UserService } from '../repositories/index.js';
 import { createHash, generateToken, isValidPassword } from '../utils.js';
+import logger from '../logger/index.js';
 
 export const loginUser = async (req, res) => {
   try {
@@ -16,7 +17,7 @@ export const loginUser = async (req, res) => {
 
     return res.json({ status: 'success', user, token });
   } catch (error) {
-    console.log('Log in error :', error);
+    logger.error('Log in error :', error);
     return res.status(500).json({ msg: 'Internal Server Error' });
   }
 };
@@ -24,19 +25,19 @@ export const loginUser = async (req, res) => {
 export const registerUser = async (req, res) => {
   try {
     req.body.password = createHash(req.body.password);
-    console.log(req.body.password);
+    logger.debug(req.body.password);
     const newCart = await CartService.createCart();
-    console.log(newCart);
+    logger.debug(newCart);
     req.body.cart = newCart._id;
-    console.log(req.body.cart);
+    logger.debug(req.body.cart);
     const user = await UserService.registerUser(req.body);
     const { _id, first_name, last_name, email, role } = user;
     const token = generateToken({ _id, first_name, last_name, email, role });
-    console.log({token});
+    logger.debug({ token });
 
     return res.json({ status: 'success', user, token });
   } catch (error) {
-    console.log('Register user error :', error);
+    logger.error('Register user error :', error);
     return res.status(500).json({ msg: 'Internal Server Error' });
   }
 };
