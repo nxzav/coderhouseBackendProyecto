@@ -1,6 +1,9 @@
 import { request, response } from 'express';
-import { ProductService, MessageService, CartService, UserService } from '../repositories/index.js';
-// import CartModel from '../models/cart.model.js';
+import {
+  ProductService,
+  MessageService,
+  CartService,
+} from '../repositories/index.js';
 
 export const homeView = async (req = request, res = response) => {
   try {
@@ -9,11 +12,11 @@ export const homeView = async (req = request, res = response) => {
       const result = await ProductService.getProducts({ ...req.query });
       result.user_name = `${first_name}`;
       console.log({ result });
-      return res.render('home', result);
+      return res.render('home', { result, title: 'Home' });
     } else {
       const result = await ProductService.getProducts({ ...req.query });
       console.log({ result });
-      return res.render('home', result);
+      return res.render('home', { result, title: 'Home' });
     }
   } catch (error) {
     throw error;
@@ -34,15 +37,15 @@ export const chatView = async (req = request, res = response) => {
 };
 
 export const cartsView = async (req = request, res = response) => {
-  const carts = await CartService.getCarts();
-  console.log({ carts });
+  const userCartID = req.session?.user.cart;
+  const cart = await CartService.getCartById(userCartID);
+  console.log({ cart });
 
-  return res.render('carts', { title: 'Carts', style: 'cart.css', carts });
+  return res.render('carts', { cart, title: 'Carts', style: 'cart.css' });
 };
 
 export const singleCartView = async (req = request, res = response) => {
   try {
-    // const cart = await CartModel.findOne({ _id: req.params.cid }).lean().exec();
     const cart = await CartService.getCartById(req.params.cid);
     console.log(cart);
     return res.render('cart', {
@@ -59,26 +62,26 @@ export const singleCartView = async (req = request, res = response) => {
 export const profileView = async (req = request, res = response) => {
   const user = req.session.user;
 
-  res.render('profile', { user, style: 'profile.css' });
+  res.render('profile', { user, title: 'Profile', style: 'profile.css' });
 };
 
 export const loginGet = async (req = request, res = response) => {
   if (req.session?.user) {
     return res.redirect('/profile');
   }
-  return res.render('login', { style: 'session.css' });
+  return res.render('login', { title: 'Login', style: 'session.css' });
 };
 
 export const registerGet = async (req = request, res = response) => {
   if (req.session?.user) {
     return res.redirect('/profile');
   }
-  return res.render('register', { style: 'session.css' });
+  return res.render('register', { title: 'Register', style: 'session.css' });
 };
 
 export const loginjwtView = async (req = request, res = response) => {
   if (req.session?.user) {
     return res.redirect('/profile');
   }
-  return res.render('loginjwt', { style: 'session.css' });
+  return res.render('loginjwt', { title: 'Login JWT', style: 'session.css' });
 };

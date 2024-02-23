@@ -6,7 +6,7 @@ const UserModel = mongoose.model('users', new mongoose.Schema({
   email: { type: String, unique: true },
   age: Number,
   password: String,
-  role: { type: String, default: 'user', enum: ['user', 'admin'] },
+  role: { type: String, default: 'user', enum: ['user', 'admin', 'premium'] },
   cart: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'carts',

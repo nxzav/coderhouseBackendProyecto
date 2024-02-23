@@ -32,13 +32,13 @@ function authToken() {
 }
 
 router.get('/', homeView);
-router.get('/realtimeproducts', rtpView);
-router.get('/chat', chatView);
-router.get('/carts', cartsView);
-router.get('/carts/:cid', singleCartView);
+router.get('/realtimeproducts', auth, rtpView);
+router.get('/chat', auth, chatView);
+router.get('/carts', auth, cartsView);
+router.get('/carts/:cid', auth, singleCartView);
 router.get('/login', sessionIsActive, loginGet);
 router.get('/loginjwt', sessionIsActive, loginjwtView);
 router.get('/register', sessionIsActive, registerGet);
-router.get('/profile', profileView);
+router.get('/profile', auth, profileView);
 
 export default router;

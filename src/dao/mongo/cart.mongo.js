@@ -1,14 +1,10 @@
 import CartModel from './models/cart.model.js';
 
 export default class Cart {
-  getCarts = async () => await CartModel.find().lean().populate('products.product');
+  getCarts = async () => await CartModel.find().lean().exec().populate('products.product');
 
   getCartById = async (cid) => {
-    return await CartModel.findById(cid).populate('products.product', [
-      'title',
-      'price',
-      'stock',
-    ]);
+    return await CartModel.findById(cid).lean().populate('products.product');
   };
 
   createCart = async () => await CartModel.create({});

@@ -12,7 +12,7 @@ export default __dirname;
 // Bcrypt
 export const createHash = (password) => {
   const salt = bcrypt.genSaltSync(10);
-  const passHash = bcrypt.hashSync(password, salt);
+  const passHash = bcrypt.hashSync(password.toString(), salt);
   return passHash;
 };
 

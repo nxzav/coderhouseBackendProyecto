@@ -1,5 +1,5 @@
 import passport from "passport";
-import UserModel from "../models/user.model.OLD.js";
+import { CartService, UserService } from "../repositories/index.js";
 import local from "passport-local";
 import GitHubStrategy from "passport-github2";
 import passportJWT from 'passport-jwt';
@@ -35,20 +35,21 @@ const initializePassport = () => {
   }, async (req, username, password, done) => {
       const {first_name, last_name, email } = req.body;
       try {
-        const user = await UserModel.findOne({ email: username });
+        const user = await UserService.getUserByEmail(username);
         if (user) {
           console.log("User already exists");
           return done(null, false);
         }
-
+        const newCart = await CartService.createCart();
         const newUser = {
           first_name,
           last_name,
           email,
           password: createHash(password),
+          cart: newCart._id,
         };
 
-        const result = await UserModel.create(newUser);
+        const result = await UserService.registerUser(newUser);
         return done(null, result);
         
       } catch (error) {
@@ -58,18 +59,16 @@ const initializePassport = () => {
   )
 );
 
-passport.use("login", new LocalStrategy({
-      usernameField: "email",
-    }, async (username, password, done) => {
+passport.use("login", new LocalStrategy({ usernameField: "email" }, async (username, password, done) => {
       try {
-        const user = await UserModel.findOne({ email: username }).lean().exec();
+        const user = await UserService.getUserByEmail(username);
 
         if (!user) {
           console.log("User doesn't exist");
           return done(null, false);
         }
 
-        if (!isValidPassword(user, password)) {
+        if (!isValidPassword(password, user.password)) {
           console.error('Password not valid');
           return done(null, false);
         }
@@ -90,18 +89,26 @@ passport.use("login", new LocalStrategy({
     console.log(profile);
 
     try {
-      const user = await UserModel.findOne({email: profile._json.email});
+      const user = await UserService.getUserByEmail(profile._json.email);
+      //  UserModel.findOne({email: profile._json.email});
       if (user) {
         console.log("Already registered", user);
         return done(null, user);
       }
 
-      const newUser = await UserModel.create({
+      const newUser = await UserService.registerUser({
         first_name: profile._json.name,
-        last_name: "",
+        last_name: '',
         email: profile._json.email,
-        password: "",
-      })
+        password: '',
+      });
+
+      // UserModel.create({
+      //   first_name: profile._json.name,
+      //   last_name: "",
+      //   email: profile._json.email,
+      //   password: "",
+      // })
 
       return done(null, newUser);
 
@@ -115,7 +122,8 @@ passport.use("login", new LocalStrategy({
   });
 
   passport.deserializeUser(async (id, done) => {
-    const user = await UserModel.findById(id);
+    const user = await UserService.getUserById(id);
+    // UserModel.findById(id);
     done(null, user);
   });
 };

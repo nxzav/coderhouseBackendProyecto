@@ -1,17 +1,17 @@
 import express from 'express';
 import { engine } from 'express-handlebars';
 import { Server } from 'socket.io';
-// import passport from 'passport';
+import passport from 'passport';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
 import cookieParser from 'cookie-parser';
 import config from './config/config.js';
 // Utils config
 import __dirname from './utils.js';
-// import initializePassport from './config/passport.config.js';
+import initializePassport from './config/passport.config.js';
 // Routes
 import viewsRouter from './routes/views.router.js';
-import { productRouter, cartRouter, authRouter, loggerRouter } from './routes/index.js';
+import { productRouter, cartRouter, authRouter, loggerRouter, sessionRouter } from './routes/index.js';
 // Services
 import { ProductService, MessageService } from './repositories/index.js';
 // Logger
@@ -42,21 +42,19 @@ app.use(
 );
 
 // Passport initialize
-// initializePassport();
-// app.use(passport.initialize());
-// app.use(passport.session());
+initializePassport();
+app.use(passport.initialize());
+app.use(passport.session());
 
 // App routing
-// app.use('/api/sessions', routerSession);
 app.use('/', viewsRouter);
+app.use('/api/sessions', sessionRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/products', productRouter);
 app.use('/api/carts', cartRouter);
 app.use('/loggerTest', loggerRouter);
 
-// MongoDB connect
-// dbConnect();
-
+// App listen
 const httpServer = app.listen(config.port, () => logger.info('Running...'));
 const io = new Server(httpServer);
 

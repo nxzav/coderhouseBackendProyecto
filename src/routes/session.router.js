@@ -48,4 +48,4 @@ router.get("/logout", (req, res) => {
   });
 });
 
-export default router;
+export {router as sessionRouter};
