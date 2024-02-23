@@ -29,15 +29,12 @@ export const devLogger = () => {
     transports: [
       new transports.Console({
         level: 'debug',
-        format: format.combine(
-          format.timestamp(),
-          customFormat
-        ),
+        format: format.combine(format.timestamp(), customFormat),
       }),
       new transports.File({
         filename: './errors.log',
         level: 'error',
-        format: format.simple(),
+        format: format.combine(format.timestamp(), customFormat),
       }),
     ],
   });

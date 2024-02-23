@@ -1,13 +1,8 @@
 import ProductModel from './models/product.model.js';
 
 export default class Product {
-  getProducts = async ({
-    limit = 10,
-    page = 1,
-    order = 1,
-    query,
-    available = true,
-  }) => {
+  getAllProducts = async () => ProductModel.find();
+  getProducts = async ({ limit = 10, page = 1, order = 1, query, available = true }) => {
     limit = Number(limit);
     page = Number(page);
     order = Number(order);

@@ -12,6 +12,7 @@ import {
   profileView,
   loginjwtView,
 } from '../controllers/views.controller.js';
+// import { verifyToken } from '../middleware/auth.middleware.js';
 
 const router = express.Router();
 
@@ -31,13 +32,13 @@ function authToken() {
 }
 
 router.get('/', homeView);
-router.get('/realtimeproducts', auth, rtpView);
-router.get('/chat', auth, chatView);
-router.get('/carts', auth, cartsView);
-router.get('/carts/:cid', auth, singleCartView);
+router.get('/realtimeproducts', rtpView);
+router.get('/chat', chatView);
+router.get('/carts', cartsView);
+router.get('/carts/:cid', singleCartView);
 router.get('/login', sessionIsActive, loginGet);
 router.get('/loginjwt', sessionIsActive, loginjwtView);
 router.get('/register', sessionIsActive, registerGet);
-router.get('/profile', auth, profileView);
+router.get('/profile', profileView);
 
 export default router;

@@ -16,7 +16,7 @@ const router = Router();
 router.get('/', verifyToken, getCarts);
 router.get('/:cid', verifyToken, getCartById);
 router.post('/', verifyToken, createCart);
-router.post('/:cid/product/:pid', verifyToken, addProductInCart);
+router.post('/:cid/product/:pid', addProductInCart);
 router.put('/:cid/product/:pid', verifyToken, updateProductInCart);
 router.delete('/:cid', verifyToken, deleteAllProductsInCart);
 router.delete('/:cid/product/:pid', verifyToken, deleteProductInCart);

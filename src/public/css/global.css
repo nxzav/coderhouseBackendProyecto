@@ -181,7 +181,7 @@ form > button {
   display: grid;
   width: min(100%, 1200px);
   grid-template-columns: repeat(3, 1fr);
-  column-gap: 3rem;
+  column-gap: 1rem;
 }
 
 .card {

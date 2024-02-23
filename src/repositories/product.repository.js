@@ -3,6 +3,7 @@ export default class ProductRepository {
     this.dao = dao;
   }
 
+  getAllProducts = async () => this.dao.getAllProducts();
   getProducts = async (query) => this.dao.getProducts(query);
   getProductById = async (pid) => this.dao.getProductById(pid);
   createProduct = async (product) => this.dao.saveProduct(product);

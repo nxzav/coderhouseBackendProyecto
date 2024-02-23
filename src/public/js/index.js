@@ -4,7 +4,7 @@ const searchBtn = document.getElementById("searchBtn");
 const addToCart = document.querySelectorAll(".addToCart");
 const filterBtn = document.getElementById("filterBtn");
 
-const cid = "656ed81aa7d768d9e0270579";
+const cid = "65d826162cbeae8fdfeccf08";
 
 addToCart.forEach((e) =>
   e.addEventListener("click", () => {

@@ -1,29 +1,28 @@
 import express from 'express';
 import { engine } from 'express-handlebars';
 import { Server } from 'socket.io';
-import passport from 'passport';
+// import passport from 'passport';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
 import cookieParser from 'cookie-parser';
 import config from './config/config.js';
 // Utils config
 import __dirname from './utils.js';
-import initializePassport from './config/passport.config.js';
+// import initializePassport from './config/passport.config.js';
 // Routes
-import routerViews from './routes/views.router.js';
-import routerProducts from './routes/products.router.js';
-import routerCarts from './routes/carts.router.js';
-import routerSession from './routes/session.router.js';
-import routerJWT from './routes/jwt.router.js';
+import viewsRouter from './routes/views.router.js';
+import { productRouter, cartRouter, authRouter, loggerRouter } from './routes/index.js';
 // Services
-import { ProductService, MessageService } from './services/index.js';
+import { ProductService, MessageService } from './repositories/index.js';
+// Logger
+import logger from './logger/index.js';
 // Initialize express
 const app = express();
 // Config express
 app.use(express.json());
-app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
+app.use(cookieParser());
 // Handlebars
 app.engine('.hbs', engine({ extname: '.hbs' }));
 app.set('view engine', 'hbs');
@@ -43,37 +42,38 @@ app.use(
 );
 
 // Passport initialize
-initializePassport();
-app.use(passport.initialize());
-app.use(passport.session());
+// initializePassport();
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 // App routing
-app.use('/', routerViews);
-app.use('/api/jwt', routerJWT);
-app.use('/api/sessions', routerSession);
-app.use('/api/products', routerProducts);
-app.use('/api/carts', routerCarts);
+// app.use('/api/sessions', routerSession);
+app.use('/', viewsRouter);
+app.use('/api/auth', authRouter);
+app.use('/api/products', productRouter);
+app.use('/api/carts', cartRouter);
+app.use('/loggerTest', loggerRouter);
 
 // MongoDB connect
 // dbConnect();
 
-const httpServer = app.listen(config.port, () => console.log('Running...'));
+const httpServer = app.listen(config.port, () => logger.info('Running...'));
 const io = new Server(httpServer);
 
-const getProducts = () => ProductService.getProducts();
+const getProducts = () => ProductService.getAllProducts();
 const getMessages = () => MessageService.getMessages();
 
 io.on('connection', async (socket) => {
-  console.log('New Socket');
+  logger.info('New Socket');
 
   // Chat
   const messages = await getMessages();
   socket.emit('logs', messages);
 
   socket.on('message', async (newMessage) => {
-    console.log(newMessage);
+    logger.info(newMessage);
     const result = await MessageModel.create(newMessage);
-    console.log({ result });
+    logger.info({ result });
     const updatedMessages = await getMessages();
     io.emit('logs', updatedMessages);
   });
@@ -84,18 +84,18 @@ io.on('connection', async (socket) => {
 
   socket.on('addProduct', async (product) => {
     const result = await ProductModel.create(product);
-    console.log(result);
+    logger.info(result);
     const products = await getProducts();
     socket.emit('products', products);
   });
 
   socket.on('delete', async ({ confirm, productID }) => {
     if (confirm === 'Y') {
-      console.log({ confirm });
-      console.log({ productID });
+      logger.info({ confirm });
+      logger.info({ productID });
       await ProductModel.deleteOne({ _id: productID });
       const products = await getProducts();
       socket.emit('products', products);
-    } else console.log('Product not deleted');
+    } else logger.info('Product not deleted');
   });
 });

@@ -5,6 +5,7 @@ import { dirname } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 import config from './config/config.js';
+import logger from './logger/index.js';
 // dirname
 export default __dirname;
 
@@ -23,9 +24,9 @@ export const isValidPassword = (password, userPassword) => {
 // JWT
 export const generateToken = (user) => {
   try {
-    return jwt.sign({...user}, config.JWTKey, {expiresIn: '1h'});
+    return jwt.sign({ ...user }, config.JWTKey, { expiresIn: '1h' });
   } catch (error) {
-    console.log(error)
+    logger.error(error);
     throw error;
   }
 };

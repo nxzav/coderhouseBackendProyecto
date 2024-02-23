@@ -1,5 +1,6 @@
 import config from '../config/config.js';
 import mongoose from 'mongoose';
+import logger from '../logger/index.js';
 
 export let User;
 export let Product;
@@ -7,12 +8,12 @@ export let Cart;
 export let Message;
 export let Ticket;
 
-console.log(`Persistence with ${config.persistence}`);
+logger.info(`Persistence with ${config.persistence}`);
 
 switch (config.persistence) {
   case 'MONGO':
     await mongoose.connect(config.mongoURI, { dbName: config.mongoDBName });
-    console.log('DB connected');
+    logger.info('DB connected');
 
     const { default: UserMongo } = await import('./mongo/user.mongo.js');
     const { default: ProductMongo } = await import('./mongo/product.mongo.js');

@@ -1,7 +1,7 @@
 import CartModel from './models/cart.model.js';
 
 export default class Cart {
-  getCarts = async () => await CartModel.find();
+  getCarts = async () => await CartModel.find().lean().populate('products.product');
 
   getCartById = async (cid) => {
     return await CartModel.findById(cid).populate('products.product', [
