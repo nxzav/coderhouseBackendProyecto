@@ -11,6 +11,7 @@ import {
   singleCartView,
   profileView,
   loginjwtView,
+  recoverView,
 } from '../controllers/views.controller.js';
 // import { verifyToken } from '../middleware/auth.middleware.js';
 
@@ -40,5 +41,6 @@ router.get('/login', sessionIsActive, loginGet);
 router.get('/loginjwt', sessionIsActive, loginjwtView);
 router.get('/register', sessionIsActive, registerGet);
 router.get('/profile', auth, profileView);
+router.get('/sendRecovery', sessionIsActive, recoverView);
 
 export default router;

@@ -13,4 +13,6 @@ export default {
   callbackURL: process.env.CALLBACK_URL,
   JWTKey: process.env.JWT_KEY,
   nodeENV: process.env.NODE_ENV,
+  passEmail: process.env.PASS_EMAIL,
+  passUser: process.env.USER_EMAIL,
 };

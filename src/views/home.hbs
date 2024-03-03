@@ -1,3 +1,4 @@
+{{#with result}}
 <h1>Products</h1>
 {{#if user_name}}
   <h3>Welcome {{user_name}} 😄</h3>
@@ -23,7 +24,7 @@
 </div>
 
 <div class="grid">
-    {{#each result.payload}}
+    {{#each payload}}
       <div class="card">
         <img class="product__image" src="{{this.thumbnails}}" alt="" />
         <div class="card__content">
@@ -50,6 +51,7 @@
     {{/if}}
   </div>
 </div>
+{{/with}}
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="socket.io/socket.io.js"></script>

@@ -4,6 +4,7 @@ import {
   MessageService,
   CartService,
 } from '../repositories/index.js';
+import logger from '../logger/index.js';
 
 export const homeView = async (req = request, res = response) => {
   try {
@@ -11,11 +12,9 @@ export const homeView = async (req = request, res = response) => {
       const { first_name, last_name } = req.session?.user;
       const result = await ProductService.getProducts({ ...req.query });
       result.user_name = `${first_name}`;
-      console.log({ result });
       return res.render('home', { result, title: 'Home' });
     } else {
       const result = await ProductService.getProducts({ ...req.query });
-      console.log({ result });
       return res.render('home', { result, title: 'Home' });
     }
   } catch (error) {
@@ -39,7 +38,6 @@ export const chatView = async (req = request, res = response) => {
 export const cartsView = async (req = request, res = response) => {
   const userCartID = req.session?.user.cart;
   const cart = await CartService.getCartById(userCartID);
-  console.log({ cart });
 
   return res.render('carts', { cart, title: 'Carts', style: 'cart.css' });
 };
@@ -47,14 +45,13 @@ export const cartsView = async (req = request, res = response) => {
 export const singleCartView = async (req = request, res = response) => {
   try {
     const cart = await CartService.getCartById(req.params.cid);
-    console.log(cart);
     return res.render('cart', {
       cart: cart,
       title: 'Single Cart',
       style: 'cart.css',
     });
   } catch (error) {
-    console.log(error);
+    logger.info('singleCartView error: ', error);
     res.send('Error to show product');
   }
 };
@@ -84,4 +81,8 @@ export const loginjwtView = async (req = request, res = response) => {
     return res.redirect('/profile');
   }
   return res.render('loginjwt', { title: 'Login JWT', style: 'session.css' });
+};
+
+export const recoverView = async (req = request, res = response) => {
+  return res.render('sendRecovery', { title: 'Recover password', style: 'session.css'});
 };

@@ -34,3 +34,8 @@
   background-color: #fff;
   box-shadow: none;
 }
+
+.login > p,
+.register > p {
+  margin: 12px 0;
+}

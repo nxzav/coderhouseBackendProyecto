@@ -6,8 +6,7 @@ export default class Product {
     limit = Number(limit);
     page = Number(page);
     order = Number(order);
-
-    console.log({ query, limit, page, order, available });
+    // console.log({ query, limit, page, order, available });
 
     const search = {};
     if (query) search.title = { $regex: query, $options: 'i' };
