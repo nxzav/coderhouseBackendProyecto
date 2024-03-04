@@ -62,15 +62,14 @@ export const recoverPassword = async (req, res) => {
 
   sendEmail(email, recoverURL);
 
-  return res.json({ success: true });
+  return res.json({ success: true, msg: 'Recovery link sent to email' });
 };
 
 export const validatePasswordToken = async (req, res) => {
   try {
     const { token } = req.query;
     const { email } = jwt.verify(token, config.JWTKey);
-
-    return res.json({ success: true, token, email });
+    if (email) return res.render('resetPassword', { token, style: 'session.css' });
   } catch (error) {
     logger.error(error);
     return res.status(401).json({ success: false, msg: 'Invalid token' });
@@ -79,11 +78,14 @@ export const validatePasswordToken = async (req, res) => {
 
 export const resetPassword = async (req, res) => {
   try {
-    const { token, password } = req.body;
+    const { token } = req.query;
+    const { password, confirmPassword } = req.body;
+    if (password !== confirmPassword) {
+      return res.status(400).json({ success: false, msg: 'Password fields do not match'});
+    }
     const { email } = jwt.verify(token, config.JWTKey);
 
     const user = await UserService.getUserByEmail(email);
-    console.log(user);
     if (!user) return res.status(400).json({ success: false, msg: 'Invalid email'});
 
     const validPassword = isValidPassword(password, user.password);
