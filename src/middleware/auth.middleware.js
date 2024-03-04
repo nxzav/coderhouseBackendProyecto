@@ -20,7 +20,7 @@ export const verifyToken = (req = request, res = response, next) => {
 };
 
 export const isAdmin = (req = request, res = response, next) => {
-  if (!(req.role === 'admin'))
+  if (!(req.role === 'admin' || req.role === 'premium'))
     return res.status(403).json({ ok: false, msg: 'Permisos insuficientes' });
   next();
 };
