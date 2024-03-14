@@ -16,8 +16,26 @@ import { productRouter, cartRouter, authRouter, loggerRouter, sessionRouter } fr
 import { ProductService, MessageService } from './repositories/index.js';
 // Logger
 import logger from './logger/index.js';
+// Swagger
+import swaggerJSDoc from 'swagger-jsdoc';
+import swaggerUiExpress from 'swagger-ui-express';
 // Initialize express
 const app = express();
+// Swagger
+const swaggerOptions = {
+  definition: {
+    openapi: '3.1.0',
+    info: {
+      title: 'MyTechStore API documentation',
+      description: 'Proyecto TechStore',
+    },
+  },
+  apis: [`${__dirname}/docs/**/*.yaml`],
+};
+
+const specs = swaggerJSDoc(swaggerOptions);
+app.use('/apidocs', swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
+
 // Config express
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

@@ -46,7 +46,7 @@ export const sendEmail = async (email, url) => {
     });
 
     await transporter.sendMail({
-      from: 'MyStore <noezh.25@gmail.com>',
+      from: 'MyTechStore <noezh.25@gmail.com>',
       to: `${email}`,
       subject: 'Recover account',
       html: templateEmail(email, url),
@@ -57,7 +57,7 @@ export const sendEmail = async (email, url) => {
 };
 
 const templateEmail = (email, url) => {
-  const title = 'Recover account for MyStore Ecommerce';
+  const title = 'Recover account for MyTechStore Ecommerce';
   const link = url;
 
   return (

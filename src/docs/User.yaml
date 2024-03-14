@@ -1,0 +1,63 @@
+paths:
+  /api/auth/login:
+    post:
+      summary: Realizar el login en la app
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: Correo electrónico del usuario
+                password:
+                  type: string
+                  description: Password del usuario
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                  user:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                      first_name:
+                        type: string
+                      last_name:
+                        type: string
+                      email:
+                        type: string
+                      age:
+                        type: number
+                      password:
+                        type: string
+                      role:
+                        type: string
+                      cart:
+                        type: object
+                      status:
+                        type: boolean
+                      creationDate:
+                        type: date
+                  token:
+                    type: string
+        '400':
+          description: Invalid data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
