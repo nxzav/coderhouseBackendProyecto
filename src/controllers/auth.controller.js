@@ -14,55 +14,61 @@ export const loginUser = async (req, res) => {
     const { email, password } = req.body;
     const user = await UserService.getUserByEmail(email);
 
-    if (!user) return res.status(400).json({ msg: 'Wrong email or password' });
+    if (!user) return res.status(400).json({success: false, msg: 'Wrong email or password' });
     const passwordIsValid = isValidPassword(password, user.password);
     if (!passwordIsValid)
-      return res.status(400).json({ msg: 'Wrong email or password' });
+      return res.status(400).json({success: false, msg: 'Wrong email or password' });
 
     const { _id, first_name, last_name, role } = user;
     const token = generateToken({ _id, first_name, last_name, role });
 
-    return res.json({ status: 'success', user, token });
+    return res.json({ success: true, user, token });
   } catch (error) {
-    logger.error('Log in error :', error);
-    return res.status(500).json({ msg: 'Internal Server Error' });
+    logger.error('Log in error: ', error);
+    return res.status(500).json({success: false, msg: 'Internal Server Error' });
   }
 };
 
 export const registerUser = async (req, res) => {
   try {
+    const userExists = UserService.getUserByEmail(req.body.email);
+    if (userExists) return res.status(409).json({ success: false, msg: 'User already exists' });
+
     req.body.password = createHash(req.body.password);
-    logger.debug(req.body.password);
     const newCart = await CartService.createCart();
-    logger.debug(newCart);
     req.body.cart = newCart._id;
-    logger.debug(req.body.cart);
+
     const user = await UserService.registerUser(req.body);
     const { _id, first_name, last_name, email, role } = user;
     const token = generateToken({ _id, first_name, last_name, email, role });
     logger.debug({ token });
 
-    return res.json({ status: 'success', user, token });
+    return res.json({ success: true, user, token });
   } catch (error) {
-    logger.error('Register user error :', error);
-    return res.status(500).json({ msg: 'Internal Server Error' });
+    logger.error('Register user error: ', error);
+    return res.status(500).json({success: false, msg: 'Internal Server Error' });
   }
 };
 
 export const recoverPassword = async (req, res) => {
-  const { email } = req.body;
-  const user = await UserService.getUserByEmail(email);
-  if (!user)
-    return res.status(400).json({ success: false, msg: 'Invalid user' });
-
-  const token = generateToken({ email });
-  console.log({ token });
-
-  const recoverURL = `http://localhost:8080/api/auth/reset-password?token=${token}`;
-
-  sendEmail(email, recoverURL);
-
-  return res.json({ success: true, msg: 'Recovery link sent to email' });
+  try {
+    const { email } = req.body;
+    const user = await UserService.getUserByEmail(email);
+    if (!user)
+      return res.status(404).json({ success: false, msg: 'User not found' });
+  
+    const token = generateToken({ email });
+    console.log({ token });
+  
+    const recoverURL = `http://localhost:8080/api/auth/reset-password?token=${token}`;
+  
+    sendEmail(email, recoverURL);
+  
+    return res.json({ success: true, msg: 'Recovery link sent to email' });
+  } catch (error) {
+    logger.error('Recover password error: ', error);
+    return res.status(500).json({success: false, msg: 'Internal Server Error' });
+  }
 };
 
 export const validatePasswordToken = async (req, res) => {
@@ -71,7 +77,7 @@ export const validatePasswordToken = async (req, res) => {
     const { email } = jwt.verify(token, config.JWTKey);
     if (email) return res.render('resetPassword', { token, style: 'session.css' });
   } catch (error) {
-    logger.error(error);
+    logger.error('Validate password error: ', errorerror);
     return res.status(401).json({ success: false, msg: 'Invalid token' });
   }
 };

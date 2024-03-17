@@ -1,0 +1,265 @@
+paths:
+  /api/products:
+    get:
+      summary: Get products
+      description: Retrieve a paginated list of products using query params
+      tags:
+        - Products
+      responses:
+        '200':
+          description: Get products success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  products:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Product'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                  msg:
+                    type: string
+    post:
+      summary: Post product
+      description: Register product using request body
+      tags:
+        - Products
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/requestBodies/postProduct'
+      responses:
+        '200':
+          description: Product registered successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  product:
+                    $ref: '#/components/requestBodies/postProduct'
+        '400':
+          description: Invalid data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                  msg:
+                    type: string
+        '409':
+          description: Product code already exists
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                  msg:
+                    type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                  msg:
+                    type: string
+  /api/products/{pid}:
+    get:
+      summary: Get product
+      description: Retrieve an specific product using product id
+      tags:
+        - Products
+      responses:
+        '200':
+          description: Get product success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  product:
+                    $ref: '#/components/schemas/Product'
+        '404':
+          description: Product does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                  msg:
+                    type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                  msg:
+                    type: string
+    put:
+      summary: Put product
+      description: Update an specific product using product id
+      tags:
+        - Products
+      responses:
+        '200':
+          description: Product updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  product:
+                    $ref: '#/components/schemas/Product'
+    delete:
+      summary: Put product
+      description: Delete an specific product using product id
+      tags:
+        - Products
+      responses:
+        '200':
+          description: Product deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  msg:
+                    type: string
+                  result:
+                    $ref: '#/components/schemas/Product'
+            
+  /api/auth/sendRecovery:
+    post:
+      summary: Send password recovery link via email
+      description: Request user email to send a password recovery link
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: User email
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: Product ID
+        title:
+          type: string
+          description: Product name
+        description:
+          type: string
+          description: Product description
+        code:
+          type: string
+          description: Product code
+        price:
+          type: number
+          description: Product price
+        status:
+          type: boolean
+          description: Product status
+        stock:
+          type: number
+          description: Product stock
+        category:
+          type: string
+          description: Product category
+        thumbnails:
+          type: array
+          description: Product thumbnails
+      example:
+        _id: ObjectId('65b8bc11be19398e932b4b88')
+        title: Monitor ViewSonic
+        description: 27 pulgadas IPS
+        code: VX2776-SMHD1
+        price: 160
+        status: true
+        stock: 10
+        category: monitors
+        thumbnails:
+          [
+            'https://www.cyberpuerta.mx/img/product/XL/CP-VIEWSONIC-VX2776-SMHD-1.jpg',
+          ]
+  requestBodies:
+    postProduct:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Product name
+        description:
+          type: string
+          description: Product description
+        code:
+          type: string
+          description: Product code
+        price:
+          type: number
+          description: Product price
+        status:
+          type: boolean
+          description: Product status
+        stock:
+          type: number
+          description: Product stock
+        category:
+          type: string
+          description: Product category
+        thumbnails:
+          type: array
+          description: Product thumbnails
+# first_name
+# last_name
+# email
+# password
+# confirmPassword

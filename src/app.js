@@ -34,7 +34,7 @@ const swaggerOptions = {
 };
 
 const specs = swaggerJSDoc(swaggerOptions);
-app.use('/apidocs', swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
+app.use('/docs', swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
 
 // Config express
 app.use(express.json());
