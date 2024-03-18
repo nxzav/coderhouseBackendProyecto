@@ -93,7 +93,9 @@ paths:
   /api/products/{pid}:
     get:
       summary: Get product
-      description: Retrieve an specific product using product id
+      description: Retrieve a specific product using product id
+      parameters:
+        - $ref: '#/components/parameters/PidParam'
       tags:
         - Products
       responses:
@@ -133,10 +135,18 @@ paths:
                   msg:
                     type: string
     put:
-      summary: Put product
-      description: Update an specific product using product id
+      summary: Update product
+      description: Update a specific product using product id
+      parameters:
+        - $ref: '#/components/parameters/PidParam'
       tags:
         - Products
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/requestBodies/postProduct'
       responses:
         '200':
           description: Product updated successfully
@@ -149,9 +159,35 @@ paths:
                     type: boolean
                   product:
                     $ref: '#/components/schemas/Product'
+        '404':
+          description: Product does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                  msg:
+                    type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                  msg:
+                    type: string
     delete:
-      summary: Put product
-      description: Delete an specific product using product id
+      summary: Delete product
+      description: Delete a specific product using product id
+      parameters:
+        - $ref: '#/components/parameters/PidParam'
       tags:
         - Products
       responses:
@@ -168,25 +204,490 @@ paths:
                     type: string
                   result:
                     $ref: '#/components/schemas/Product'
-            
-  /api/auth/sendRecovery:
-    post:
-      summary: Send password recovery link via email
-      description: Request user email to send a password recovery link
+        '404':
+          description: Product does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                  msg:
+                    type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                  msg:
+                    type: string
+  /api/carts/:
+    get:
+      summary: Get all carts
+      description: Retrieve a list of ecommerce carts
       tags:
-        - Users
+        - Carts
+      responses:
+        '200':
+          description: Get carts success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  msg:
+                    type: string
+                  carts:
+                    $ref: '#/components/schemas/Cart'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                  msg:
+                    type: string
+    post:
+      summary: Create cart
+      description: Create a cart
+      tags:
+        - Carts
+      responses:
+        '200':
+          description: Cart created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    description: Cart ID
+                    type: string
+                  products:
+                    description: Cart product list
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        product:
+                          type: object
+                          description: Product in cart
+                        quantity:
+                          type: number
+                          description: Quantity of product in cart
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                  msg:
+                    type: string
+  /api/carts/{cid}:
+    get:
+      summary: Get cart
+      description: Retrieve a specific cart using cart id
+      parameters:
+        - $ref: '#/components/parameters/CidParam'
+      tags:
+        - Carts
+      responses:
+        '200':
+          description: Get cart success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  product:
+                    $ref: '#/components/schemas/Product'
+        '404':
+          description: Cart does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                  msg:
+                    type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                  msg:
+                    type: string
+    delete:
+      summary: Delete cart
+      description: Delete a specific cart using cart id
+      parameters:
+        - $ref: '#/components/parameters/CidParam'
+      tags:
+        - Carts
+      responses:
+        '200':
+          description: Cart deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  cart:
+                    $ref: '#/components/schemas/Cart'
+        '404':
+          description: Cart does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                  msg:
+                    type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                  msg:
+                    type: string
+  /api/carts/{cid}/product/{pid}:
+    post:
+      summary: Add product in cart
+      description: Add a product to a specific cart using cart id and product id
+      parameters:
+        - $ref: '#/components/parameters/CidParam'
+        - $ref: '#/components/parameters/PidParam'
+      tags:
+        - Carts
+      responses:
+        '200':
+          description: Product added in cart successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  result:
+                    $ref: '#/components/schemas/Cart'
+        '400':
+          description: Product can not be added
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                  msg:
+                    type: string
+        '404':
+          description: Cart does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                  msg:
+                    type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                  msg:
+                    type: string
+    put:
+      summary: Update product in cart
+      description: Update product quantity in a specific cart using cart id and product id
+      parameters:
+        - $ref: '#/components/parameters/CidParam'
+        - $ref: '#/components/parameters/PidParam'
+      tags:
+        - Carts
       requestBody:
-        required: true
         content:
           application/json:
             schema:
               type: object
               properties:
-                email:
-                  type: string
-                  description: User email
+                quantity:
+                  type: number
+      responses:
+        '200':
+          description: Product in cart updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  result:
+                    $ref: '#/components/schemas/Cart'
+        '400':
+          description: Product can not be updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                  msg:
+                    type: string
+        '404':
+          description: Cart does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                  msg:
+                    type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                  msg:
+                    type: string
+    delete:
+      summary: Delete product in cart
+      description: Delete a product from a specific cart using cart id and product id
+      parameters:
+        - $ref: '#/components/parameters/CidParam'
+        - $ref: '#/components/parameters/PidParam'
+      tags:
+        - Carts
+      responses:
+        '200':
+          description: Product in cart deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  result:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                        description: Cart ID
+                        default: ObjectId('65d846a95a8c5a55a1a4f53c')
+                      products:
+                        type: array
+                        description: Product list
+        '400':
+          description: Product can not be deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                  msg:
+                    type: string
+        '404':
+          description: Cart does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                  msg:
+                    type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                  msg:
+                    type: string
+  /api/carts/{cid}/purchase:
+    post:
+      summary: Complete cart purchase
+      description: Complete cart purchase using cart ID
+      parameters:
+        - $ref: '#/components/parameters/CidParam'
+      tags:
+        - Carts
+      responses:
+        '200':
+          description: Purchase completed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  ticket:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Ticket code
+                      client:
+                        type: string
+                        description: Purchaser ID
+                      items:
+                        type: array
+                        description: Items in purchased cart
+                        items:
+                          type: object
+                          properties:
+                            title:
+                              type: string
+                            price:
+                              type: number
+                            quantity:
+                              type: number
+                            total:
+                              type: number
+                      amount:
+                        type: number
+                        description: Total price
+        '400':
+          description: Empty cart
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                  msg:
+                    type: string
+        '404':
+          description: Cart does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                  msg:
+                    type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: false
+                  msg:
+                    type: string
+
 components:
+  parameters:
+    PidParam:
+      name: pid
+      in: path
+      schema:
+        type: string
+      required: true
+      description: ID of the product
+    CidParam:
+      name: cid
+      in: path
+      schema:
+        type: string
+      required: true
+      description: ID of the cart
   schemas:
+    Cart:
+      type: object
+      properties:
+        _id:
+          type: string
+          default: ObjectId('65d846a95a8c5a55a1a4f53c')
+          description: Cart ID
+        products:
+          description: Cart product list
+          type: array
+          items:
+            type: object
+            properties:
+              product:
+                $ref: '#/components/schemas/Product'
+              quantity:
+                type: number
+                description: Quantity of product in cart
     Product:
       type: object
       properties:

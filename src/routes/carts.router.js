@@ -14,11 +14,11 @@ import {
 const router = Router();
 
 router.get('/', verifyToken, getCarts);
-router.get('/:cid', verifyToken, getCartById);
 router.post('/', verifyToken, createCart);
+router.get('/:cid', verifyToken, getCartById);
+router.delete('/:cid', verifyToken, deleteAllProductsInCart);
 router.post('/:cid/product/:pid', addProductInCart);
 router.put('/:cid/product/:pid', verifyToken, updateProductInCart);
-router.delete('/:cid', verifyToken, deleteAllProductsInCart);
 router.delete('/:cid/product/:pid', verifyToken, deleteProductInCart);
 router.post('/:cid/purchase', verifyToken, completePurchase);
 
