@@ -1,3 +1,4 @@
+import logger from '../logger/index.js';
 import { ProductService } from '../repositories/index.js';
 
 export const getProducts = async (req, res) => {
@@ -5,7 +6,7 @@ export const getProducts = async (req, res) => {
     const products = await ProductService.getProducts({ ...req.query });
     return res.json({success: true, products });
   } catch (error) {
-    console.log('getProducts error: ', error);
+    logger.error('getProducts error: ', error);
     return res.status(500).json({success: false, msg: 'Internal server error' });
   }
 };
@@ -18,7 +19,7 @@ export const getProductById = async (req, res) => {
       return res.status(404).json({ msg: `Product with id ${pid} doesn't exist` });
     return res.json({success: true, product });
   } catch (error) {
-    console.log('getProductById error: ', error);
+    logger.error('getProductById error: ', error);
     return res.status(500).json({ success: false, msg: 'Internal server error' });
   }
 };
@@ -31,7 +32,7 @@ export const addProduct = async (req, res) => {
 
     return res.json({success: true, product });
   } catch (error) {
-    console.log('addProduct error: ', error);
+    logger.error('addProduct error: ', error);
     return res.status(500).json({ success: false, msg: 'Internal server error' });
   }
 };
@@ -44,7 +45,7 @@ export const updateProduct = async (req, res) => {
 
     return res.json({success: true, product });
   } catch (error) {
-    console.log('updateProduct error: ', error);
+    logger.error('updateProduct error: ', error);
     return res.status(500).json({ success: false, msg: 'Internal server error' });
   }
 };
@@ -53,7 +54,6 @@ export const deleteProduct = async (req, res) => {
   try {
     const { pid } = req.params;
     const { role, _id } = req;
-    console.log({role});
 
     if (role === 'premium') {
       const product = await ProductService.getProductById(pid);
@@ -69,7 +69,7 @@ export const deleteProduct = async (req, res) => {
     if (!result) return res.status(400).json({ success: false, msg: 'Could not delete product: ' + pid });
     return res.json({ success: true, msg: 'Product has been deleted', result });
   } catch (error) {
-    console.log('deleteProduct error: ', error);
+    logger.error('deleteProduct error: ', error);
     return res.status(500).json({ success: false, msg: 'Internal server error' });
   }
 };

@@ -25,7 +25,7 @@ export const isValidPassword = (password, userPassword) => {
 // JWT
 export const generateToken = (user) => {
   try {
-    return jwt.sign({ ...user }, config.JWTKey, { expiresIn: '1h' });
+    return jwt.sign({ ...user }, config.JWTKey, { expiresIn: '24h' });
   } catch (error) {
     logger.error(error);
     throw error;
@@ -60,8 +60,7 @@ const templateEmail = (email, url) => {
   const title = 'Recover account for MyTechStore Ecommerce';
   const link = url;
 
-  return (
-  `
+  return `
     <table id="wrapper" width="100%" cellspacing="0" cellpadding="0" border="0">
       <tr>
         <td align="center">
@@ -83,6 +82,5 @@ const templateEmail = (email, url) => {
         </td>
       </tr>
     </table>
-  `
-  )
-}
+  `;
+};

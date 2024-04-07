@@ -7,4 +7,3 @@ export default class MessageRepository {
   getMessageById = async (id) => this.dao.getMessageById(id);
   saveMessage = async (message) => this.dao.saveMessage(message);
 }
- 

@@ -2,15 +2,10 @@
 
 * {
   font-family: 'Roboto Condensed', sans-serif;
-  /* Remover */
-  /* background-color: #222; */
-  /* color: #bbb; */
 }
 
 body {
   margin: 0;
-  /* Remover */
-  /* background-color: #000; */
 }
 
 .title,
@@ -48,6 +43,7 @@ a:hover {
 
 button {
   display: block;
+  padding: 0 6px;
   height: 2rem;
   border: 1px solid #ddd;
   border-radius: 1rem;
@@ -119,6 +115,11 @@ nav > section {
   border: 1px solid #ddd;
   margin-bottom: 4px;
   border-radius: 1rem;
+}
+
+.search > input:focus,
+.filters > input:focus {
+  outline: 1px solid #000;
 }
 
 .filters {

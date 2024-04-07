@@ -5,7 +5,7 @@ import config from '../config/config.js';
 export const verifyToken = (req = request, res = response, next) => {
   const token = req.header('x-token');
   if (!token) return res.status(401).json({ msg: 'Token no proporcionado' });
-  
+
   try {
     const { _id, email, role } = jwt.verify(token, config.JWTKey);
     req._id = _id;
@@ -15,7 +15,7 @@ export const verifyToken = (req = request, res = response, next) => {
     console.log(error);
     return res.status(401).json({ ok: false, msg: 'Token no valido' });
   }
-  
+
   next();
 };
 

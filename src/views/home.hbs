@@ -1,5 +1,6 @@
 {{#with result}}
 <h1>Products</h1>
+
 {{#if user_name}}
   <h3>Welcome {{user_name}} 😄</h3>
 {{/if}}
@@ -51,6 +52,7 @@
     {{/if}}
   </div>
 </div>
+<span id="cartId" data-cart="{{cart}}"></span>
 {{/with}}
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

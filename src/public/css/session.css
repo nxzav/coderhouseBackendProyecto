@@ -21,6 +21,11 @@
   background-color: #f7f7f7;
 }
 
+.login > input:focus,
+.register > input:focus {
+  outline: 3px solid #fff;
+}
+
 .login > button,
 .register > button {
   height: 2rem;

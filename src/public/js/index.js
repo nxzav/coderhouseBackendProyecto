@@ -3,8 +3,8 @@ const nextPage = document.getElementById("nextPage");
 const searchBtn = document.getElementById("searchBtn");
 const addToCart = document.querySelectorAll(".addToCart");
 const filterBtn = document.getElementById("filterBtn");
-
-const cid = "65d846a95a8c5a55a1a4f53c";
+const cartId = document.getElementById("cartId");
+const cid = cartId.dataset.cart;
 
 addToCart.forEach((e) =>
   e.addEventListener("click", () => {

@@ -88,7 +88,7 @@ io.on('connection', async (socket) => {
 
   socket.on('message', async (newMessage) => {
     logger.info(newMessage);
-    const result = await MessageModel.create(newMessage);
+    const result = await MessageService.saveMessage(newMessage);
     logger.info({ result });
     const updatedMessages = await getMessages();
     io.emit('logs', updatedMessages);
@@ -99,7 +99,7 @@ io.on('connection', async (socket) => {
   socket.emit('products', products);
 
   socket.on('addProduct', async (product) => {
-    const result = await ProductModel.create(product);
+    const result = await ProductService.createProduct(product);
     logger.info(result);
     const products = await getProducts();
     socket.emit('products', products);
@@ -109,7 +109,7 @@ io.on('connection', async (socket) => {
     if (confirm === 'Y') {
       logger.info({ confirm });
       logger.info({ productID });
-      await ProductModel.deleteOne({ _id: productID });
+      await ProductService.deleteProduct(productID);
       const products = await getProducts();
       socket.emit('products', products);
     } else logger.info('Product not deleted');

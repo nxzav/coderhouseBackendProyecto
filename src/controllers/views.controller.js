@@ -9,9 +9,10 @@ import logger from '../logger/index.js';
 export const homeView = async (req = request, res = response) => {
   try {
     if (req.session.user) {
-      const { first_name, last_name } = req.session?.user;
+      const { first_name, cart } = req.session?.user;
       const result = await ProductService.getProducts({ ...req.query });
       result.user_name = `${first_name}`;
+      result.cart = cart;
       return res.render('home', { result, title: 'Home' });
     } else {
       const result = await ProductService.getProducts({ ...req.query });
@@ -46,7 +47,7 @@ export const singleCartView = async (req = request, res = response) => {
   try {
     const cart = await CartService.getCartById(req.params.cid);
     return res.render('cart', {
-      cart: cart,
+      cart,
       title: 'Single Cart',
       style: 'cart.css',
     });
