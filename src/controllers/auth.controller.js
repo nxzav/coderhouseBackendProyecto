@@ -22,6 +22,8 @@ export const loginUser = async (req, res) => {
     const { _id, first_name, last_name, role } = user;
     const token = generateToken({ _id, first_name, last_name, role });
 
+    res.cookie('token', token, { httpOnly: true });
+
     return res.json({ success: true, user, token });
   } catch (error) {
     logger.error('Log in error: ', error);

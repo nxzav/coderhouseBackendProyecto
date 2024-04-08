@@ -3,10 +3,11 @@ import jwt from 'jsonwebtoken';
 import nodemailer from 'nodemailer';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 import config from './config/config.js';
 import logger from './logger/index.js';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 // dirname
 export default __dirname;
 
@@ -31,6 +32,15 @@ export const generateToken = (user) => {
     throw error;
   }
 };
+
+// Utils
+export const calculateTotal = (array) => {
+  let total = 0;
+  array.forEach(item => {
+    total += item.product.price * item.quantity;
+  });
+  return total;
+}
 
 // Email
 export const sendEmail = async (email, url) => {

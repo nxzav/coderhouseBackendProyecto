@@ -1,11 +1,15 @@
 import { Router } from "express";
 import passport from "passport";
+import { generateToken } from "../utils.js";
 
 const router = Router();
 
 router.post("/login", passport.authenticate("login", { failureRedirect: "/login" }),
   async (req, res) => {
     if(!req.user) return res.status(400).send("Invalid credentials");
+    const { _id, first_name, last_name, role } = req.user;
+    const token = generateToken({ _id, first_name, last_name, role });
+    res.cookie('token', token, { httpOnly: true });
 
     req.session.user = req.user;
     return res.redirect("/profile");
@@ -40,12 +44,13 @@ router.get('/current',
   }
 );
 
-router.get("/logout", (req, res) => {
+router.get('/logout', (req, res) => {
+  res.clearCookie('token');
   req.session.destroy((err) => {
-    if (err) return res.send("Logout error");
+    if (err) return res.send('Logout error');
 
-    return res.redirect("/");
+    return res.redirect('/');
   });
 });
 
-export {router as sessionRouter};
+export { router as sessionRouter };

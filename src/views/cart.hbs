@@ -1,17 +1,55 @@
 <div class="cart">
-  <h3>Cart: {{cart._id}}</h3>
+  <h3 class="cart--title">
+    Shopping cart <span class="cart--id">{{cart._id}}</span>
+  </h3>
   {{#each cart.products}}
-  <img class="cart__product-image" src="{{product.thumbnails}}" alt="">
-  <div class="cart__info">
-    <span>Product: {{product.title}}</span>
-    <span>Description: {{product.description}}</span>
-    <span>Code: {{product.code}}</span>
-    <span>Price: ${{product.price}}</span>
-    <span>Stock: {{product.stock}}</span>
-    <span>Category: {{product.category}}</span>
-    <span>Status: {{product.status}}</span>
-    <span>Quantity: {{quantity}}</span>
+  <div class="cart--card">
+    <img class="cart--card__product-image" src="{{product.thumbnails}}" alt="">
+    <div class="cart--card__info">
+      <span><b>{{product.title}}</b></span>
+      <span>Description: {{product.description}}</span>
+      <span>Code: {{product.code}}</span>
+      <span>Stock: {{product.stock}}</span>
+      <button class="remove-btn" data-id="{{product._id}}">
+        Remove item
+      </button>
+    </div>
+    <div class="cart--card__info">
+      <span><b>Price: ${{product.price}}</b></span>
+      <span><b>Qty: {{quantity}}</b></span>
+    </div>
   </div>
   {{/each}}
-  <button class="cart__btn" id="deleteCart">Clear cart</button>
+  <h2 class="cart--price">Total: ${{cartTotal}}</h2>
+  <button id="purchaseBtn" class="purchase-btn">Complete purchase</button>
+  {{!-- <button class="cart__btn" id="deleteCart">Clear cart</button> --}}
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+  const purchaseBtn = document.querySelector('#purchaseBtn');
+  const removeBtn = document.querySelectorAll('.remove-btn');
+
+  removeBtn.forEach((e) => e.addEventListener('click', () => {
+    const pid = e.dataset.id;
+    const cid = '{{cart._id}}';
+
+    fetch(`/api/carts/${cid}/product/${pid}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+      .then(() => location.reload())
+      .catch((e) => console.log('Error:', e));
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'Product deleted from cart',
+      showConfirmButton: false,
+      timer: 1000,
+    });
+  }));
+</script>

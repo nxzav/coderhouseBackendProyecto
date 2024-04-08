@@ -4,6 +4,7 @@ import {
   MessageService,
   CartService,
 } from '../repositories/index.js';
+import { calculateTotal } from '../utils.js';
 import logger from '../logger/index.js';
 
 export const homeView = async (req = request, res = response) => {
@@ -19,7 +20,8 @@ export const homeView = async (req = request, res = response) => {
       return res.render('home', { result, title: 'Home' });
     }
   } catch (error) {
-    throw error;
+    logger.info('homeView error: ', error);
+    return res.status(500).json({ success: false, msg: 'Internal Server Error' });
   }
 };
 
@@ -32,8 +34,10 @@ export const rtpView = async (req = request, res = response) => {
 
 export const chatView = async (req = request, res = response) => {
   const messages = await MessageService.getMessages();
+  const username = req.session?.user.first_name;
+  console.log(username);
 
-  return res.render('chat', { messages, title: 'Chat', style: 'chat.css' });
+  return res.render('chat', { messages, username, title: 'Chat', style: 'chat.css' });
 };
 
 export const cartsView = async (req = request, res = response) => {
@@ -46,8 +50,11 @@ export const cartsView = async (req = request, res = response) => {
 export const singleCartView = async (req = request, res = response) => {
   try {
     const cart = await CartService.getCartById(req.params.cid);
+    const cartTotal = calculateTotal(cart.products);
+
     return res.render('cart', {
       cart,
+      cartTotal,
       title: 'Single Cart',
       style: 'cart.css',
     });

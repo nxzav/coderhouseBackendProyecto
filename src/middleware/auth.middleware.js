@@ -3,7 +3,8 @@ import jwt from 'jsonwebtoken';
 import config from '../config/config.js';
 
 export const verifyToken = (req = request, res = response, next) => {
-  const token = req.header('x-token');
+  const token = (req?.cookies) ? req.cookies['token'] : null;
+  console.log(token);
   if (!token) return res.status(401).json({ msg: 'Token no proporcionado' });
 
   try {

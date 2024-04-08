@@ -17,11 +17,17 @@
   background-color: #f7f7f7; */
 }
 
+.form-create > input:focus,
+.form-create > select:focus {
+  outline: 2px solid #ddd;
+}
+
 .form-create > select {
   height: 2rem;
-  padding: 0.5rem 0.8rem;
+  padding: 0 1rem;
+  border-radius: 1rem;
   border: 1px solid #ddd;
-  background-color: #f7f7f7;
+  background-color: #ffffff;
 }
 
 .form__btn {
