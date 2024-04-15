@@ -6,19 +6,25 @@
 }
 
 #chatInput {
-  height: 2rem;
-  padding: 0.5rem 0.8rem;
+  padding: 0.625rem 1rem;
   font-size: 1rem;
-  border: 1px solid #ddd;
+  border: 0;
+  box-shadow: 0 3px 3px 2px #eee;
+  /* box-shadow: inset -2px -2px 8px 2px #eee; */
   border-radius: 1rem;
+}
+
+#chatInput:focus {
+  outline: 2px solid #ddd;
 }
 
 #chatBox {
   margin-top: 1rem;
   padding: 1rem;
-  border: 1px solid #ddd;
+  /* border: 1px solid #ddd; */
   border-radius: 1rem;
-  background-color: #f7f7f7;
+  box-shadow: 0 3px 3px 2px #eee;
+  /* box-shadow: inset -2px -2px 8px 2px #eee; */
 }
 
 #chatBox > p {

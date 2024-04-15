@@ -7,25 +7,40 @@ const cartId = document.getElementById("cartId");
 const cid = cartId.dataset.cart;
 
 addToCart.forEach((e) =>
-  e.addEventListener("click", () => {
+  e.addEventListener('click', () => {
     const pid = e.dataset.id;
 
     fetch(`/api/carts/${cid}/product/${pid}`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     })
-      .then((res) => res.json())
-      .then((data) => console.log(data))
-      .catch((e) => console.log("Error:", e));
-    Swal.fire({
-      position: "top-end",
-      icon: "success",
-      title: "Product added to cart",
-      showConfirmButton: false,
-      timer: 1000,
-    });
+      .then((res) => {
+        if(res.ok) {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Product added to cart',
+            showConfirmButton: false,
+            timer: 1000,
+          })
+        } else if (res.status == '403') {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'warning',
+            title: 'Admins can not add products to cart',
+            showConfirmButton: false,
+            timer: 1000,
+          })
+        } else if (res.status == '404') {
+          window.location.href = '/login';
+        }
+      })
+      .then((data) => {})
+      .catch((err) => {
+        console.log('Error adding product to cart: ', err);
+      });
   })
 );
 

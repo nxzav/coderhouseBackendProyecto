@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken';
 import { CartService, UserService } from '../repositories/index.js';
 import {
   createHash,
+  generateRecoveryToken,
   generateToken,
   isValidPassword,
   sendEmail,
@@ -59,7 +60,7 @@ export const recoverPassword = async (req, res) => {
     if (!user)
       return res.status(404).json({ success: false, msg: 'User not found' });
   
-    const token = generateToken({ email });
+    const token = generateRecoveryToken({ email });
     console.log({ token });
   
     const recoverURL = `http://localhost:8080/api/auth/reset-password?token=${token}`;

@@ -1,13 +1,15 @@
 <div class="cart">
   <h3 class="cart--title">
-    Shopping cart <span class="cart--id">{{cart._id}}</span>
+    Shopping cart
+    <br/>
+    <span class="cart--id">{{cart._id}}</span>
   </h3>
   {{#each cart.products}}
   <div class="cart--card">
     <img class="cart--card__product-image" src="{{product.thumbnails}}" alt="">
     <div class="cart--card__info">
       <span><b>{{product.title}}</b></span>
-      <span>Description: {{product.description}}</span>
+      <span>{{product.description}}</span>
       <span>Code: {{product.code}}</span>
       <span>Stock: {{product.stock}}</span>
       <button class="remove-btn" data-id="{{product._id}}">
@@ -21,13 +23,12 @@
   </div>
   {{/each}}
   <h2 class="cart--price">Total: ${{cartTotal}}</h2>
-  <button id="purchaseBtn" class="purchase-btn">Complete purchase</button>
+  <button id="checkout-btn" class="purchase-btn">CHECKOUT</button>
   {{!-- <button class="cart__btn" id="deleteCart">Clear cart</button> --}}
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-  const purchaseBtn = document.querySelector('#purchaseBtn');
+  const checkoutBtn = document.querySelector('#checkout-btn');
   const removeBtn = document.querySelectorAll('.remove-btn');
 
   removeBtn.forEach((e) => e.addEventListener('click', () => {

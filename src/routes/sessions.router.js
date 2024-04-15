@@ -1,23 +1,34 @@
 import { Router } from "express";
 import passport from "passport";
 import { generateToken } from "../utils.js";
+import logger from "../logger/index.js";
 
 const router = Router();
 
 router.post("/login", passport.authenticate("login", { failureRedirect: "/login" }),
   async (req, res) => {
-    if(!req.user) return res.status(400).send("Invalid credentials");
-    const { _id, first_name, last_name, role } = req.user;
-    const token = generateToken({ _id, first_name, last_name, role });
-    res.cookie('token', token, { httpOnly: true });
-
-    req.session.user = req.user;
-    return res.redirect("/profile");
+    try {
+      if(!req.user) return res.status(400).send("Invalid credentials");
+      const { _id, first_name, last_name, role } = req.user;
+      const token = generateToken({ _id, first_name, last_name, role });
+      res.cookie('token', token, { httpOnly: true });
+  
+      req.session.user = req.user;
+      return res.redirect("/profile");
+    } catch (error) {
+      logger.error('login error: ', error);
+      return res.status(500).json({success: false, msg: 'Internal server error' });
+    }
   }
 );
 
 router.post("/register", passport.authenticate("register", {failureRedirect: "/register"}), async (req, res) => {
-  return res.redirect("/login");
+  try {
+    return res.redirect("/login");
+  } catch (error) {
+    logger.error('register error: ', error);
+    return res.status(500).json({success: false, msg: 'Internal server error' });
+  }
 });
 
 router.get("/github",

@@ -33,6 +33,15 @@ export const generateToken = (user) => {
   }
 };
 
+export const generateRecoveryToken = (user) => {
+  try {
+    return jwt.sign({ ...user }, config.JWTKey, { expiresIn: '1h' });
+  } catch (error) {
+    logger.error(error);
+    throw error;
+  }
+};
+
 // Utils
 export const calculateTotal = (array) => {
   let total = 0;

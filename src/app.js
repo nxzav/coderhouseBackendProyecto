@@ -99,8 +99,7 @@ io.on('connection', async (socket) => {
   socket.emit('products', products);
 
   socket.on('addProduct', async (product) => {
-    const result = await ProductService.createProduct(product);
-    logger.info(result);
+    logger.info(JSON.stringify(product));
     const products = await getProducts();
     socket.emit('products', products);
   });

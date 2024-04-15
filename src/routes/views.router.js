@@ -1,5 +1,4 @@
 import express from 'express';
-import passport from 'passport';
 
 import {
   cartsView,
@@ -28,13 +27,21 @@ function auth(req, res, next) {
   return res.redirect('/login');
 }
 
-function authToken() {
-  return passport.authenticate('jwt', { session: false });
+function isAdminOrPremium(req, res, next) {
+  if (req.session?.user.role === 'admin' || req.session?.user.role === 'premium')
+    return next();
+  return res.status(403).json({ success: false, msg: 'You are not authorized to access this service' });
+}
+
+function isUser(req, res, next) {
+  if (req.session?.user.role === 'user' || req.session?.user.role === 'premium')
+    return next();
+  return res.status(403).json({ success: false, msg: 'Admins can not access the chat' });
 }
 
 router.get('/', homeView);
-router.get('/realtimeproducts', auth, rtpView);
-router.get('/chat', auth, chatView);
+router.get('/realtimeproducts', [auth, isAdminOrPremium], rtpView);
+router.get('/chat', [auth, isUser], chatView);
 router.get('/carts', auth, cartsView);
 router.get('/carts/:cid', auth, singleCartView);
 router.get('/login', sessionIsActive, loginGet);

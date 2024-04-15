@@ -7,14 +7,14 @@ import {
   getProducts,
   updateProduct,
 } from '../controllers/product.controller.js';
-import { isAdmin, verifyToken } from '../middleware/auth.middleware.js';
+import { isAdminOrPremium, verifyToken } from '../middleware/auth.middleware.js';
 
 const router = Router();
 
 router.get('/', verifyToken, getProducts);
 router.get('/:pid', verifyToken, getProductById);
-router.post('/', [verifyToken, isAdmin], addProduct);
-router.put('/:pid', [verifyToken, isAdmin], updateProduct);
-router.delete('/:pid', [verifyToken, isAdmin], deleteProduct);
+router.post('/', [verifyToken, isAdminOrPremium], addProduct);
+router.put('/:pid', [verifyToken, isAdminOrPremium], updateProduct);
+router.delete('/:pid', [verifyToken, isAdminOrPremium], deleteProduct);
 
 export { router as productRouter };

@@ -1,3 +1,4 @@
+import logger from '../../logger/index.js';
 import CartModel from './models/cart.model.js';
 
 export default class Cart {
@@ -11,17 +12,17 @@ export default class Cart {
 
   addProductInCart = async (cid, pid) => {
     const cart = await CartModel.findById(cid);
-    console.log(cart);
+    logger.info(JSON.stringify(cart));
 
     if (!cart) return null;
 
     const productInCart = cart.products.find((p) => p.product.toString() === pid);
 
-    console.log({ productInCart });
     if (productInCart) productInCart.quantity++;
     else cart.products.push({ product: pid, quantity: 1 });
 
     cart.save();
+    logger.info(JSON.stringify(cart));
 
     return cart;
   };

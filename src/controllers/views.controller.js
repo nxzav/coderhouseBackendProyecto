@@ -20,31 +20,45 @@ export const homeView = async (req = request, res = response) => {
       return res.render('home', { result, title: 'Home' });
     }
   } catch (error) {
-    logger.info('homeView error: ', error);
+    logger.error('homeView error: ', error);
     return res.status(500).json({ success: false, msg: 'Internal Server Error' });
   }
 };
 
 export const rtpView = async (req = request, res = response) => {
-  return res.render('realTimeProducts', {
-    title: 'Real Time Products',
-    style: 'rtp.css',
-  });
+  try {
+    return res.render('realTimeProducts', {
+      title: 'Real Time Products',
+      style: 'rtp.css',
+    });
+  } catch (error) {
+    logger.error('rtpView error: ', error);
+    return res.status(500).json({ success: false, msg: 'Internal Server Error' });
+  }
 };
 
 export const chatView = async (req = request, res = response) => {
-  const messages = await MessageService.getMessages();
-  const username = req.session?.user.first_name;
-  console.log(username);
-
-  return res.render('chat', { messages, username, title: 'Chat', style: 'chat.css' });
+  try {
+    const messages = await MessageService.getMessages();
+    const username = req.session?.user.first_name;
+  
+    return res.render('chat', { messages, username, title: 'Chat', style: 'chat.css' });
+  } catch (error) {
+    logger.error('chatView error: ', error);
+    return res.status(500).json({ success: false, msg: 'Internal Server Error' });
+  }
 };
 
 export const cartsView = async (req = request, res = response) => {
-  const userCartID = req.session?.user.cart;
-  const cart = await CartService.getCartById(userCartID);
-
-  return res.render('carts', { cart, title: 'Carts', style: 'cart.css' });
+  try {
+    const userCartID = req.session?.user.cart;
+    const cart = await CartService.getCartById(userCartID);
+  
+    return res.render('carts', { cart, title: 'Carts', style: 'cart.css' });
+  } catch (error) {
+    logger.error('cartsView error: ', error);
+    return res.status(500).json({ success: false, msg: 'Internal Server Error' });
+  }
 };
 
 export const singleCartView = async (req = request, res = response) => {
@@ -55,11 +69,11 @@ export const singleCartView = async (req = request, res = response) => {
     return res.render('cart', {
       cart,
       cartTotal,
-      title: 'Single Cart',
+      title: 'Checkout',
       style: 'cart.css',
     });
   } catch (error) {
-    logger.info('singleCartView error: ', error);
+    logger.error('singleCartView error: ', error);
     res.send('Error to show product');
   }
 };

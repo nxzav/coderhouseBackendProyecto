@@ -1,5 +1,3 @@
-console.log("Log Real Time Products");
-
 const socket = io();
 
 const addBtn = document.getElementById("addBtn");
@@ -17,7 +15,25 @@ form.addEventListener("submit", (e) => {
   const thumbnails = document.getElementById('thumbnails').value;
 
   const product = { title, description, code, price, stock, category, thumbnails };
-  socket.emit("addProduct", product);
+
+  fetch(`/api/products`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(product),
+  }).then((res) => {
+      if (!res.ok) {
+        throw new Error('Error sending data to server.');
+      }
+      return res.json();
+    })
+    .then((data) => {
+      console.log('Product created successfully: ', data);
+      console.log('Emitting addProduct event with data: ', product);
+      socket.emit('addProduct', product);
+    })
+    .catch((err) => console.log('Error:', err));
 });
 
 socket.on("products", (data) => {
@@ -30,7 +46,7 @@ socket.on("products", (data) => {
     item.innerHTML = `
       <img class="product__image" src="${p.thumbnails}" alt="${p.title}"/>
       <div>
-        <h3>Product: ${p.title}</h3>
+        <h3>${p.title}</h3>
         <p>Description: ${p.description}</p>
         <p>Code: ${p.code}</p>
         <p>Price: $${p.price}</p>
@@ -38,6 +54,7 @@ socket.on("products", (data) => {
         <button class="deleteProduct" data-id="${p._id}">Eliminar producto</button>
       </div>
       <p class="pid">ID: ${p._id}</p>
+      <p class="pid">Owner: ${p.owner}</p>
     `;
     content.appendChild(item);
 
