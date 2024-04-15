@@ -3,12 +3,10 @@ import jwt from 'jsonwebtoken';
 import config from '../config/config.js';
 import logger from '../logger/index.js';
 
-export const verifyToken = (req = request, res = response, next) => {
-  const token = req?.cookies ? req.cookies['token'] : null;
-  logger.info(token);
-  if (!token) return res.status(401).json({ msg: 'Token no proporcionado' });
-
+export const verifyToken = (req = request, res = response, next) => {  
   try {
+    const token = req?.cookies ? req.cookies['token'] : null;
+    if (!token) return res.status(401).json({ msg: 'Token no proporcionado' });
     const { _id, email, role } = jwt.verify(token, config.JWTKey);
     req._id = _id;
     req.email = email;
@@ -28,6 +26,7 @@ export const isAdminOrPremium = (req = request, res = response, next) => {
 };
 
 export function isUserOrPremium(req, res, next) {
+  console.log({ userOrPremium: req.role });
   if (req.role === 'user' || req.role === 'premium') return next();
   return res.status(403).json({ success: false, msg: 'You are not authorized to access this service' });
 }

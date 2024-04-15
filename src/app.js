@@ -5,13 +5,14 @@ import passport from 'passport';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
 import config from './config/config.js';
 // Utils config
 import __dirname from './utils.js';
 import initializePassport from './config/passport.config.js';
 // Routes
 import viewsRouter from './routes/views.router.js';
-import { productRouter, cartRouter, authRouter, loggerRouter, sessionRouter } from './routes/index.js';
+import { productRouter, cartRouter, authRouter, loggerRouter, sessionRouter, paymentRouter } from './routes/index.js';
 // Services
 import { ProductService, MessageService } from './repositories/index.js';
 // Logger
@@ -37,6 +38,7 @@ const specs = swaggerJSDoc(swaggerOptions);
 app.use('/docs', swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
 
 // Config express
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
@@ -70,6 +72,7 @@ app.use('/api/sessions', sessionRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/products', productRouter);
 app.use('/api/carts', cartRouter);
+app.use('/api/payment', paymentRouter);
 app.use('/loggerTest', loggerRouter);
 
 // App listen
@@ -104,11 +107,10 @@ io.on('connection', async (socket) => {
     socket.emit('products', products);
   });
 
-  socket.on('delete', async ({ confirm, productID }) => {
+  socket.on('delete', async ({ confirmation, productID }) => {
     if (confirm === 'Y') {
-      logger.info({ confirm });
+      logger.info({ confirmation });
       logger.info({ productID });
-      await ProductService.deleteProduct(productID);
       const products = await getProducts();
       socket.emit('products', products);
     } else logger.info('Product not deleted');

@@ -8,16 +8,18 @@ const router = Router();
 router.post("/login", passport.authenticate("login", { failureRedirect: "/login" }),
   async (req, res) => {
     try {
-      if(!req.user) return res.status(400).send("Invalid credentials");
+      if (!req.user) return res.status(400).send('Invalid credentials');
       const { _id, first_name, last_name, role } = req.user;
       const token = generateToken({ _id, first_name, last_name, role });
       res.cookie('token', token, { httpOnly: true });
-  
+
       req.session.user = req.user;
-      return res.redirect("/profile");
+      return res.json(token);
     } catch (error) {
       logger.error('login error: ', error);
-      return res.status(500).json({success: false, msg: 'Internal server error' });
+      return res
+        .status(500)
+        .json({ success: false, msg: 'Internal server error' });
     }
   }
 );

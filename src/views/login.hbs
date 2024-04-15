@@ -38,10 +38,10 @@
       body: JSON.stringify(user),
     })
       .then((res) => {
-        if (res.redirected) {
-          window.location.href = res.url;
+        if (res.ok) {
+          window.location = '/profile'
         } else {
-          return res.json();
+          window.location.reload();
         }
       })
       .then((data) => {})

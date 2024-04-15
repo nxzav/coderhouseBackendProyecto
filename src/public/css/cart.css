@@ -41,11 +41,25 @@
   border-bottom: 2px solid #ddd;
 }
 
-.cart__btn {
+.cart--btn {
   width: 100%;
   margin-top: 0.5rem;
   font-size: 1rem;
   background-color: #fb3;
+}
+
+#cart--delete {
+  box-sizing: border-box;
+  width: fit-content;
+  display: block;
+  margin-left: auto;
+  margin-top: 1rem;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  background-color: #ddd;
+  color: #222;
+  text-align: center;
+  font-weight: normal;
 }
 
 .cart--card__product-image {
@@ -74,6 +88,8 @@
   padding: 1rem;
   margin: 0 auto;
   font-size: 1rem;
+  font-weight: bold;
+  border-radius: 6px;
   background-color: #fb3;
 }
 

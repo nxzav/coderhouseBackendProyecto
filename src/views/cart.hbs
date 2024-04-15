@@ -24,12 +24,52 @@
   {{/each}}
   <h2 class="cart--price">Total: ${{cartTotal}}</h2>
   <button id="checkout-btn" class="purchase-btn">CHECKOUT</button>
+  <div id="wallet_container"></div>
   {{!-- <button class="cart__btn" id="deleteCart">Clear cart</button> --}}
 </div>
 
+<script src="https://sdk.mercadopago.com/js/v2"></script>
 <script>
+  const mp = new MercadoPago('TEST-6e868261-2f1e-41bd-8b3f-35cd4eff749d');
   const checkoutBtn = document.querySelector('#checkout-btn');
   const removeBtn = document.querySelectorAll('.remove-btn');
+
+  function createCheckoutButton(preferenceId) {
+    const bricksBuilder = mp.bricks();
+    const renderComponent = async () => {
+      if (window.paymentBrickController) window.paymentBrickController.unmount();
+      window.paymentBrickController = await bricksBuilder.create('wallet', 'wallet_container', {
+        initialization: {
+          preferenceId: preferenceId,
+        },
+      });
+    };
+    renderComponent();
+  }
+
+  checkoutBtn.addEventListener('click', async () => {
+    try {
+      const cid = '{{cart._id}}';
+      const orderData = {
+        title: 'MyTechStore order',
+        quantity: 1,
+        price: Number('{{cartTotal}}'),
+      }
+
+      const response = await fetch(`/api/payment/create-preference`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(orderData),
+      });
+
+      const preference = await response.json();
+      createCheckoutButton(preference.id);
+    } catch (error) {
+      alert('Checkout error: ', error);
+    }
+  });
 
   removeBtn.forEach((e) => e.addEventListener('click', () => {
     const pid = e.dataset.id;

@@ -25,6 +25,14 @@ addToCart.forEach((e) =>
             showConfirmButton: false,
             timer: 1000,
           })
+        } else if (res.status == '400') {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'warning',
+            title: 'Premium users can not buy their own products',
+            showConfirmButton: false,
+            timer: 1000,
+          })
         } else if (res.status == '403') {
           Swal.fire({
             position: 'top-end',

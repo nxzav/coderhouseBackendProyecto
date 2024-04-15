@@ -30,7 +30,6 @@ form.addEventListener("submit", (e) => {
     })
     .then((data) => {
       console.log('Product created successfully: ', data);
-      console.log('Emitting addProduct event with data: ', product);
       socket.emit('addProduct', product);
     })
     .catch((err) => console.log('Error:', err));
@@ -60,9 +59,21 @@ socket.on("products", (data) => {
 
     const deleteBtn = item.querySelector(".deleteProduct");
     deleteBtn.addEventListener("click", () => {
-      const confirm = prompt('Para eliminar el producto escriba "Y"');
       const productID = deleteBtn.dataset.id;
-      socket.emit("delete", { confirm, productID });
+      const confirmation = prompt('To confirm product delete write "Y"');
+      if (confirmation === 'Y') {
+        fetch(`/api/products/${productID}`, {
+          method: 'DELETE',
+        })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log('Product deleted successfully: ', data.result);
+          socket.emit("delete", { confirmation, productID });
+        })
+        .catch((err) => console.error(err));
+      } else {
+        alert('Product not deleted');
+      }
     });
   });
 });

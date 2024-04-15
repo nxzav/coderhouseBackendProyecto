@@ -12,32 +12,10 @@ import {
   loginjwtView,
   recoverView,
 } from '../controllers/views.controller.js';
+import { auth, isAdminOrPremium, isUser, sessionIsActive } from '../middleware/views.middleware.js';
 // import { verifyToken } from '../middleware/auth.middleware.js';
 
 const router = express.Router();
-
-// Middleware
-function sessionIsActive(req, res, next) {
-  if (req.session?.user) return res.redirect('/profile');
-  return next();
-}
-
-function auth(req, res, next) {
-  if (req.session?.user) return next();
-  return res.redirect('/login');
-}
-
-function isAdminOrPremium(req, res, next) {
-  if (req.session?.user.role === 'admin' || req.session?.user.role === 'premium')
-    return next();
-  return res.status(403).json({ success: false, msg: 'You are not authorized to access this service' });
-}
-
-function isUser(req, res, next) {
-  if (req.session?.user.role === 'user' || req.session?.user.role === 'premium')
-    return next();
-  return res.status(403).json({ success: false, msg: 'Admins can not access the chat' });
-}
 
 router.get('/', homeView);
 router.get('/realtimeproducts', [auth, isAdminOrPremium], rtpView);

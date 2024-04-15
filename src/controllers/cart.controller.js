@@ -37,10 +37,20 @@ export const createCart = async (req, res) => {
 export const addProductInCart = async (req, res) => {
   try {
     const { cid, pid } = req.params;
+    const { role, _id } = req;
     const productExists = await ProductService.getProductById(pid);
 
+    if (role === 'premium') {
+      const product = await ProductService.getProductById(pid);
+      if (!product) return res.status(404).json({ msg: `Product with ${pid} doesn't exist` });
+
+      if (product.owner.toString() === _id) {
+        return res.status(400).json({ success: false, msg: 'Premium users can not buy their own products' });
+      }
+    }
+
     if (!productExists)
-      return res.status(400).json({ success: false, msg: 'Product does not exist' });
+      return res.status(404).json({ success: false, msg: 'Product does not exist' });
 
     const result = await CartService.addProductInCart(cid, pid);
 

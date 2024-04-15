@@ -15,4 +15,5 @@ export default {
   nodeENV: process.env.NODE_ENV,
   passEmail: process.env.PASS_EMAIL,
   passUser: process.env.USER_EMAIL,
+  mpAccessToken: process.env.MP_ACCESS_TOKEN,
 };

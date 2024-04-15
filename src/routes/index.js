@@ -3,3 +3,4 @@ export * from './carts.router.js';
 export * from './auth.router.js';
 export * from './logger.router.js';
 export * from './sessions.router.js';
+export * from './payment.router.js';
